@@ -1,0 +1,9 @@
+C:\Program Files (x86)\Infolight\EEP2015\SQL_Create\SQL_Create\bin\Debug\SQL_Create.exe.config
+C:\Program Files (x86)\Infolight\EEP2015\SQL_Create\SQL_Create\bin\Debug\SQL_Create.exe
+C:\Program Files (x86)\Infolight\EEP2015\SQL_Create\SQL_Create\bin\Debug\SQL_Create.pdb
+C:\Program Files (x86)\Infolight\EEP2015\SQL_Create\SQL_Create\obj\Debug\SQL_Create.csprojResolveAssemblyReference.cache
+C:\Program Files (x86)\Infolight\EEP2015\SQL_Create\SQL_Create\obj\Debug\SQL_Create.Properties.Resources.resources
+C:\Program Files (x86)\Infolight\EEP2015\SQL_Create\SQL_Create\obj\Debug\SQL_Create.csproj.GenerateResource.Cache
+C:\Program Files (x86)\Infolight\EEP2015\SQL_Create\SQL_Create\obj\Debug\SQL_Create.exe
+C:\Program Files (x86)\Infolight\EEP2015\SQL_Create\SQL_Create\obj\Debug\SQL_Create.pdb
+C:\Program Files (x86)\Infolight\EEP2015\SQL_Create\SQL_Create\obj\Debug\SQL_Create.Form_MainPage.resources
