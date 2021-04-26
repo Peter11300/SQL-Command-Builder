@@ -9,11 +9,21 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using Microsoft.Office.Interop;
+using Excel = Microsoft.Office.Interop.Excel;
 
 namespace SQLCommandString {
     public partial class Form_MainPage : Form {
         public Form_MainPage() {
             InitializeComponent();
+        }
+
+        static void openfile(string mysheet) {
+            var excelApp = new Excel.Application();
+            excelApp.Visible = true;
+
+            Excel.Workbooks books = excelApp.Workbooks;
+            Excel.Workbook sheet = books.Open(mysheet);
         }
 
         public DataTable ImportExcel() {
@@ -25,6 +35,8 @@ namespace SQLCommandString {
             openFileDialogFunction.Title = windowTitle; //開窗標題
 
             DataTable dataTable = new DataTable();
+
+           
 
             if (openFileDialogFunction.ShowDialog() == DialogResult.OK) {
                 //定義OleDb======================================================
@@ -52,6 +64,10 @@ namespace SQLCommandString {
                         "HDR=" + HDR +
                         "IMEX=" + IMEX;
                 //=============================================================
+
+
+                //開啟Excel檔案
+                openfile(FilePath); 
 
 
                 using (OleDbConnection Connect = new OleDbConnection(connectString)) {

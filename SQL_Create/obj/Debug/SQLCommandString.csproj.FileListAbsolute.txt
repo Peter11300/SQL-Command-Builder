@@ -15,3 +15,4 @@ C:\Program Files (x86)\Portfolio\SQLCommandString\SQL_Create\obj\Debug\SQLComman
 C:\Program Files (x86)\Portfolio\SQLCommandString\SQL_Create\obj\Debug\SQLCommandString.Properties.Resources.resources
 C:\Program Files (x86)\Portfolio\SQLCommandString\SQL_Create\obj\Debug\SQLCommandString.csproj.GenerateResource.Cache
 C:\Program Files (x86)\Portfolio\SQLCommandString\SQL_Create\obj\Debug\SQLCommandString.csprojResolveAssemblyReference.cache
+C:\Program Files (x86)\Portfolio\SQLCommandString\SQL_Create\obj\Debug\SQLCommandString.csproj.ResolveComReference.cache
