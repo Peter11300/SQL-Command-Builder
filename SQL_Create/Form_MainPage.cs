@@ -11,6 +11,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using Microsoft.Office.Interop;
 using Excel = Microsoft.Office.Interop.Excel;
+using System.Diagnostics;
 
 namespace SQLCommandString {
     public partial class Form_MainPage : Form {
@@ -18,13 +19,13 @@ namespace SQLCommandString {
             InitializeComponent();
         }
 
-        static void openfile(string mysheet) {
-            var excelApp = new Excel.Application();
-            excelApp.Visible = true;
+        //static void openfile(string mysheet) {
+        //    var excelApp = new Excel.Application();
+        //    excelApp.Visible = true;
 
-            Excel.Workbooks books = excelApp.Workbooks;
-            Excel.Workbook sheet = books.Open(mysheet);
-        }
+        //    Excel.Workbooks books = excelApp.Workbooks;
+        //    Excel.Workbook sheet = books.Open(mysheet);
+        //}
 
         public DataTable ImportExcel() {
             string windowFilter = "Excel files|*.xlsx";
@@ -36,7 +37,7 @@ namespace SQLCommandString {
 
             DataTable dataTable = new DataTable();
 
-           
+
 
             if (openFileDialogFunction.ShowDialog() == DialogResult.OK) {
                 //定義OleDb======================================================
@@ -53,7 +54,7 @@ namespace SQLCommandString {
                 string HDR = "No;";
 
                 //5.IMEX=1 通知驅動程序始終將「互混」數據列作為文本讀取(;結尾區隔,'文字結尾)
-                string IMEX = "0';";
+                string IMEX = "0';"; 
 
                 //=============================================================
                 //連線字串
@@ -65,10 +66,10 @@ namespace SQLCommandString {
                         "IMEX=" + IMEX;
                 //=============================================================
 
-
                 //開啟Excel檔案
-                openfile(FilePath); 
-
+                Process p = Process.Start(FilePath);
+                p.WaitForInputIdle();
+                p.WaitForExit();
 
                 using (OleDbConnection Connect = new OleDbConnection(connectString)) {
                     try {
