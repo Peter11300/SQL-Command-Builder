@@ -248,6 +248,7 @@ namespace SQLCommandString {
         }
 
         private void button_CreateTable_Click(object sender, EventArgs e) {
+            resetDegreeOfCompletionText();
             DataTable TableValue = ImportExcel();
             String startEndLocation = getStartEndLocation(TableValue);
             String primaryKeyLocation = getPrimaryKeyLocation(TableValue);
@@ -257,6 +258,7 @@ namespace SQLCommandString {
         }
 
         private void button_Alter_Click(object sender, EventArgs e) {
+            resetDegreeOfCompletionText();
             DataTable TableValue = ImportExcel();
             String commandString = getAlterString(TableValue);
 
@@ -267,6 +269,10 @@ namespace SQLCommandString {
             if ((total - 1) != 0) {
                 DegreeOfCompletion.Text = "完成率：" + (current * 100 / (total - 1)) + "％";
             }
+        }
+
+        private void resetDegreeOfCompletionText() {
+            DegreeOfCompletion.Text = "完成率：" + 0 + "％";
         }
 
         private void button_Cooy_Click(object sender, EventArgs e) {
