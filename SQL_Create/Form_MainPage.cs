@@ -54,7 +54,7 @@ namespace SQLCommandString {
                 string HDR = "No;";
 
                 //5.IMEX=1 通知驅動程序始終將「互混」數據列作為文本讀取(;結尾區隔,'文字結尾)
-                string IMEX = "0';"; 
+                string IMEX = "0';";
 
                 //=============================================================
                 //連線字串
@@ -105,16 +105,23 @@ namespace SQLCommandString {
         }
 
         private String getStartEndLocation(DataTable ExcelTable) {
-            String location = "s0";
+            String location = "";
+            Boolean firstCheck = true;
             for (int i = 0; i < ExcelTable.Rows.Count; i++) {
-                if (i + 1 < ExcelTable.Rows.Count) {
-                    if (!(ExcelTable.Rows[i]["規格書"].ToString().Equals(ExcelTable.Rows[i + 1]["規格書"].ToString()))) {
-                        location += ",e" + i + ",s" + (i + 1);
+                if (ExcelTable.Rows[i]["修改註記V"].ToString() == "AT") {
+                    if (firstCheck) {
+                        location += "s" + i;
+                        firstCheck = false;
+                    } else {
+                        if (i + 1 < ExcelTable.Rows.Count) {
+                            if (!(ExcelTable.Rows[i]["規格書"].ToString().Equals(ExcelTable.Rows[i + 1]["規格書"].ToString()))) {
+                                location += ",e" + i + ",s" + (i + 1);
+                            }
+                        } else {
+                            location += ",e" + i;
+                        }
                     }
-                } else {
-                    location += ",e" + i;
                 }
-
             }
             return location;
         }
@@ -122,7 +129,7 @@ namespace SQLCommandString {
         private String getPrimaryKeyLocation(DataTable ExcelTable) {
             String location = "";
             for (int i = 0; i < ExcelTable.Rows.Count; i++) {
-                if (ExcelTable.Rows[i]["KEY"].ToString() == "P") {
+                if (ExcelTable.Rows[i]["KEY"].ToString() == "P" && ExcelTable.Rows[i]["修改註記V"].ToString() == "AT") {
                     location += "p" + i + ",";
                 }
             }
