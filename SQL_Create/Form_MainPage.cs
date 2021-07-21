@@ -104,17 +104,17 @@ namespace SQLCommandString {
             return dataTable;
         }
 
-        private String getStartEndLocation(DataTable ExcelTable) {
-            String location = "";
-            Boolean firstCheck = true;
-            for (int i = 0; i < ExcelTable.Rows.Count; i++) {
-                if (ExcelTable.Rows[i]["修改註記V"].ToString() == "AT") {
+        private string GetStartEndLocation(DataTable excelTable) {
+            string location = "";
+            bool firstCheck = true;
+            for (int i = 0; i < excelTable.Rows.Count; i++) {
+                if (excelTable.Rows[i]["修改註記V"].ToString() == "AT") {
                     if (firstCheck) {
                         location += "s" + i;
                         firstCheck = false;
                     } else {
-                        if (i + 1 < ExcelTable.Rows.Count) {
-                            if (!(ExcelTable.Rows[i]["規格書"].ToString().Equals(ExcelTable.Rows[i + 1]["規格書"].ToString()))) {
+                        if (i + 1 < excelTable.Rows.Count) {
+                            if (!(excelTable.Rows[i]["規格書"].ToString().Equals(excelTable.Rows[i + 1]["規格書"].ToString()))) {
                                 location += ",e" + i + ",s" + (i + 1);
                             }
                         } else {
@@ -126,47 +126,47 @@ namespace SQLCommandString {
             return location;
         }
 
-        private String getPrimaryKeyLocation(DataTable ExcelTable) {
-            String location = "";
-            for (int i = 0; i < ExcelTable.Rows.Count; i++) {
-                if (ExcelTable.Rows[i]["KEY"].ToString() == "P" && ExcelTable.Rows[i]["修改註記V"].ToString() == "AT") {
+        private string GetPrimaryKeyLocation(DataTable excelTable) {
+            string location = "";
+            for (int i = 0; i < excelTable.Rows.Count; i++) {
+                if (excelTable.Rows[i]["KEY"].ToString() == "P" && excelTable.Rows[i]["修改註記V"].ToString() == "AT") {
                     location += "p" + i + ",";
                 }
             }
             return location;
         }
 
-        private String getcolumnString(DataTable ExcelTable, int ExcelTableIndex) {
-            String columnString = "";
-            if (ExcelTable.Rows[ExcelTableIndex]["備註"].ToString().ToUpper() == "IDENTIFY") {
-                columnString = ExcelTable.Rows[ExcelTableIndex]["資料行名稱"].ToString() + " " + ExcelTable.Rows[ExcelTableIndex]["資料類型"].ToString() + " " + "IDENTITY(1, 1)" + " " + ExcelTable.Rows[ExcelTableIndex]["允許Null"].ToString() + ", \r\n";
+        private string GetColumnString(DataTable excelTable, int excelTableIndex) {
+            string columnString = "";
+            if (excelTable.Rows[excelTableIndex]["備註"].ToString().ToUpper() == "IDENTIFY") {
+                columnString = excelTable.Rows[excelTableIndex]["資料行名稱"].ToString() + " " + excelTable.Rows[excelTableIndex]["資料類型"].ToString() + " " + "IDENTITY(1, 1)" + " " + excelTable.Rows[excelTableIndex]["允許Null"].ToString() + ", \r\n";
             } else {
-                columnString = ExcelTable.Rows[ExcelTableIndex]["資料行名稱"].ToString() + " " + ExcelTable.Rows[ExcelTableIndex]["資料類型"].ToString() + " " + ExcelTable.Rows[ExcelTableIndex]["允許Null"].ToString() + ", \r\n";
+                columnString = excelTable.Rows[excelTableIndex]["資料行名稱"].ToString() + " " + excelTable.Rows[excelTableIndex]["資料類型"].ToString() + " " + excelTable.Rows[excelTableIndex]["允許Null"].ToString() + ", \r\n";
             }
             return columnString;
         }
 
-        private String getCreateString(DataTable ExcelTable, String _startEndLocation, String _primaryKeyLocation) {
-            String[] startEndLocation = _startEndLocation.Split(',');
-            String[] primaryKeyLocation = _primaryKeyLocation.Split(',');
+        private string GetCreateString(DataTable excelTable, string _startEndLocation, string _primaryKeyLocation) {
+            string[] startEndLocation = _startEndLocation.Split(',');
+            string[] primaryKeyLocation = _primaryKeyLocation.Split(',');
             int startEndLocationIndex = 0;
             int primaryKeyLocationIndex = 0;
-            String commandString = "";
-            String temp_commandString = "";
-            String primaryString = "\r\nPRIMARY KEY(";
-            Boolean primaryCheck = true;
-            Action<int> action = setDegreeOfCompletionText;
+            StringBuilder commandString = new StringBuilder("");
+            StringBuilder temp_commandString = new StringBuilder("");
+            string primaryString = "\r\nPRIMARY KEY(";
+            bool primaryCheck = true;
+            Action<int> action = SetDegreeOfCompletionText;
 
-            for (int i = 0; i < ExcelTable.Rows.Count; i++) {
+            for (int i = 0; i < excelTable.Rows.Count; i++) {
                 //setDegreeOfCompletionText(i, ExcelTable.Rows.Count);
-                action.Invoke(((i + 1) * 100 / (ExcelTable.Rows.Count)));
-                if (ExcelTable.Rows[i]["修改註記V"].ToString() == "AT") {
+                action.Invoke(((i + 1) * 100 / (excelTable.Rows.Count)));
+                if (excelTable.Rows[i]["修改註記V"].ToString() == "AT") {
                     if ("p" + i == primaryKeyLocation[primaryKeyLocationIndex]) {
                         if (primaryCheck == false) {
-                            primaryString = primaryString + "," + ExcelTable.Rows[i]["資料行名稱"].ToString();
+                            primaryString = primaryString + "," + excelTable.Rows[i]["資料行名稱"].ToString();
                             primaryKeyLocationIndex++;
                         } else {
-                            primaryString = primaryString + ExcelTable.Rows[i]["資料行名稱"].ToString();
+                            primaryString = primaryString + excelTable.Rows[i]["資料行名稱"].ToString();
                             primaryCheck = false;
                             primaryKeyLocationIndex++;
                         }
@@ -174,73 +174,72 @@ namespace SQLCommandString {
 
                     if ("e" + i == startEndLocation[startEndLocationIndex]) {
 
-                        temp_commandString += getcolumnString(ExcelTable, i);
+                        temp_commandString.Append(GetColumnString(excelTable, i));
 
-                        temp_commandString = temp_commandString + primaryString + ") \r\n";
-                        temp_commandString += "); \r\n\r\n";
+                        temp_commandString.Append(primaryString + ") \r\n");
+                        temp_commandString.Append("); \r\n\r\n");
 
-                        commandString += temp_commandString;
+                        commandString.Append(temp_commandString);
                         primaryString = "\r\nPRIMARY KEY(";
-                        temp_commandString = "";
+                        temp_commandString.Clear();
                         startEndLocationIndex++;
                         primaryCheck = true;
                     } else {
                         if ("s" + i == startEndLocation[startEndLocationIndex]) {
-                            String createTableString = "CREATE TABLE ";
-                            createTableString = createTableString + ExcelTable.Rows[i]["規格書"].ToString() + "\r\n( \r\n";
-                            temp_commandString += createTableString;
+                            string createTableString = "CREATE TABLE ";
+                            createTableString = createTableString + excelTable.Rows[i]["規格書"].ToString() + "\r\n( \r\n";
+                            temp_commandString.Append(createTableString);
                             startEndLocationIndex++;
                         }
 
-                        temp_commandString += getcolumnString(ExcelTable, i);
+                        temp_commandString.Append(GetColumnString(excelTable, i));
                     }
                 }
 
             }
 
-            return commandString;
+            return commandString.ToString();
         }
 
-        private String getAlterString(DataTable ExcelTable) {
-            String commandString = "";
-            String commandAddString = "";
-            String commandDropString = "";
-            String commandModifyString = "";
-            String storedprocedureString = "";
-            Action<int> action = setDegreeOfCompletionText;
+        private string GetAlterString(DataTable excelTable) {
+            StringBuilder commandString = new StringBuilder("");
+            StringBuilder commandAddString = new StringBuilder("");
+            StringBuilder commandDropString = new StringBuilder("");
+            StringBuilder commandModifyString = new StringBuilder("");
+            StringBuilder storedprocedureString = new StringBuilder("");
+            Action<int> action = SetDegreeOfCompletionText;
 
-            for (int i = 0; i < ExcelTable.Rows.Count; i++) {
+            for (int i = 0; i < excelTable.Rows.Count; i++) {
                 //setDegreeOfCompletionText(i, ExcelTable.Rows.Count);
-                action.Invoke(((i + 1) * 100 / (ExcelTable.Rows.Count)));
-                switch (ExcelTable.Rows[i]["修改註記V"].ToString()) {
+                action.Invoke(((i + 1) * 100 / (excelTable.Rows.Count)));
+                switch (excelTable.Rows[i]["修改註記V"].ToString()) {
                     case "A":
-                        commandAddString = commandAddString + getAlterAddString(ExcelTable.Rows[i]);
+                        commandAddString.Append(GetAlterAddString(excelTable.Rows[i]));
                         break;
                     case "D":
-                        commandDropString = commandDropString + getAlterDropString(ExcelTable.Rows[i]);
+                        commandDropString.Append(GetAlterDropString(excelTable.Rows[i]));
                         break;
                     case "C":
-                        storedprocedureString = storedprocedureString + getAlterChangeString(ExcelTable.Rows[i]);
+                        storedprocedureString.Append(storedprocedureString + GetAlterChangeString(excelTable.Rows[i]));
                         break;
                     case "M":
-                        commandModifyString = commandModifyString + getAlterModifyString(ExcelTable.Rows[i]);
+                        commandModifyString.Append(GetAlterModifyString(excelTable.Rows[i]));
                         break;
-
                 }
             }
 
-            commandString = commandString + commandAddString + commandDropString + commandModifyString;
+            commandString.Append(commandAddString.ToString() + commandDropString.ToString() + commandModifyString.ToString());
 
-            if (storedprocedureString != "") {
-                commandString = commandString + "\r\n==========================\r\n" + "======== 以下請逐行執行 ========\r\n" + "==========================\r\n";
-                commandString = commandString + storedprocedureString;
+            if (string.IsNullOrEmpty(storedprocedureString.ToString())) {
+                commandString.Append("\r\n==========================\r\n" + "======== 以下請逐行執行 ========\r\n" + "==========================\r\n");
+                commandString.Append(storedprocedureString);
             }
 
-            return commandString;
+            return commandString.ToString();
         }
 
-        private String getAlterAddString(DataRow dataRow) {
-            String commandString = "";
+        private string GetAlterAddString(DataRow dataRow) {
+            string commandString = "";
 
             if (dataRow["備註"].ToString().ToUpper() == "IDENTIFY") {
                 commandString = commandString + "ALTER TABLE " + dataRow["規格書"].ToString() + " ADD " + dataRow["資料行名稱"].ToString() + " " + dataRow["資料類型"].ToString() + " " + "IDENTITY(1, 1)" + " ;\r\n";
@@ -251,46 +250,38 @@ namespace SQLCommandString {
             return commandString;
         }
 
-        private String getAlterDropString(DataRow dataRow) {
-            String commandString = "";
+        private string GetAlterDropString(DataRow dataRow) {
+            string commandString = "";
 
             commandString = commandString + "ALTER TABLE " + dataRow["規格書"].ToString() + " DROP COLUMN " + dataRow["資料行名稱"].ToString() + " ;\r\n";
 
             return commandString;
         }
 
-        private String getAlterChangeString(DataRow dataRow) {
-            String commandString = "";
+        private string GetAlterChangeString(DataRow dataRow) {
+            string commandString = "";
 
             commandString = commandString + "\r\n sp_rename '" + dataRow["規格書"].ToString() + "." + dataRow["原欄位名稱"].ToString() + "', '" + dataRow["資料行名稱"].ToString() + "', '" + "COLUMN' ;\r\n";
 
             return commandString;
         }
 
-        private String getAlterModifyString(DataRow dataRow) {
-            String commandString = "";
+        private string GetAlterModifyString(DataRow dataRow) {
+            string commandString = "";
 
             commandString = commandString + "ALTER TABLE " + dataRow["規格書"].ToString() + " ALTER COLUMN " + dataRow["資料行名稱"].ToString() + " " + dataRow["資料類型"].ToString() + " ;\r\n";
 
             return commandString;
         }
 
-        private String getFIELD_TYPE(String InputString) {
-            if (InputString.Contains("(")) {
-                return InputString.Substring(0, InputString.IndexOf("("));
-            } else {
-                return InputString;
-            }
+        private string GetFIELD_TYPE(string inputString) {
+            return (inputString.Contains("(")) ? inputString.Substring(0, inputString.IndexOf("(")) : inputString;
         }
 
-        private String getFIELD_LENGTH(String InputString) {
-            String judgmentString = "";
-            if (InputString.Contains("(")) {
-                judgmentString = InputString.Substring(0, InputString.IndexOf("("));
-            } else {
-                judgmentString = InputString;
-            }
-            switch (judgmentString) {
+        private string GetFIELD_LENGTH(string inputString) {
+            string variableType = (inputString.Contains("(")) ? inputString.Substring(0, inputString.IndexOf("(")) : inputString;
+
+            switch (variableType) {
                 case "int":
                     return "4";
                 case "bigint":
@@ -318,20 +309,20 @@ namespace SQLCommandString {
                 case "char":
                     return "1";
                 case "varbinary":
-                    if (InputString.Substring(InputString.IndexOf("(") + 1, InputString.Length - InputString.IndexOf("(") - 2) == "MAX")
+                    if (inputString.Substring(inputString.IndexOf("(") + 1, inputString.Length - inputString.IndexOf("(") - 2) == "MAX")
                         return "2147483647";
                     else
-                        return InputString.Substring(InputString.IndexOf("(") + 1, InputString.Length - InputString.IndexOf("(") - 2);
+                        return inputString.Substring(inputString.IndexOf("(") + 1, inputString.Length - inputString.IndexOf("(") - 2);
                 case "varchar":
-                    if (InputString.Substring(InputString.IndexOf("(") + 1, InputString.Length - InputString.IndexOf("(") - 2) == "MAX")
+                    if (inputString.Substring(inputString.IndexOf("(") + 1, inputString.Length - inputString.IndexOf("(") - 2) == "MAX")
                         return "2147483647";
                     else
-                        return InputString.Substring(InputString.IndexOf("(") + 1, InputString.Length - InputString.IndexOf("(") - 2);
+                        return inputString.Substring(inputString.IndexOf("(") + 1, inputString.Length - inputString.IndexOf("(") - 2);
                 case "nvarchar":
-                    if (InputString.Substring(InputString.IndexOf("(") + 1, InputString.Length - InputString.IndexOf("(") - 2) == "MAX")
+                    if (inputString.Substring(inputString.IndexOf("(") + 1, inputString.Length - inputString.IndexOf("(") - 2) == "MAX")
                         return "2147483647";
                     else
-                        return InputString.Substring(InputString.IndexOf("(") + 1, InputString.Length - InputString.IndexOf("(") - 2);
+                        return inputString.Substring(inputString.IndexOf("(") + 1, inputString.Length - inputString.IndexOf("(") - 2);
                 default:
                     return "";
 
@@ -339,108 +330,102 @@ namespace SQLCommandString {
             }
         }
 
-        private String getIS_KEY(String InputString) {
-            if (InputString == "P")
-                return "Y";
-            else
-                return "N";
+        private string GetIS_KEY(string inputString) {
+            return (inputString == "P") ? "Y" : "N";
         }
 
-        private String getIS_NULL(String InputString) {
-            if (InputString == "NULL")
-                return "N";
-            else
-                return "Y";
+        private string GetIS_NULL(string inputString) {
+            return (inputString == "NULL") ? "N" : "Y";
         }
 
-        private String getInsertString(DataTable ExcelTable, int ExcelTableIndex, int TableIndex, String StartEnd) {
-            String insertString = "";
-            if (StartEnd == "Start") {
-                insertString = "('" + (ExcelTable.Rows[ExcelTableIndex]["規格書"].ToString() + "', '"
+        private string GetInsertString(DataTable excelTable, int excelTableIndex, int tableIndex, string startEnd) {
+            StringBuilder insertString = new StringBuilder("");
+            //string insertString = "";
+            if (startEnd == "Start") {
+                insertString.Append("('" + (excelTable.Rows[excelTableIndex]["規格書"].ToString() + "', '"
                 + "*" + "', "
                 + "0" + ", "
                 + "NULL" + ", '"
                 + "N" + "', "
                 + "NULL" + ", '"
-                + ExcelTable.Rows[ExcelTableIndex]["規格書名稱"].ToString() + "', "
+                + excelTable.Rows[excelTableIndex]["規格書名稱"].ToString() + "', "
                 + "NULL, NULL , NULL, NULL, NULL, NULL, NULL, "
                 + "NULL" + ", "
                 + "NULL, NULL , NULL, NULL, NULL, NULL, NULL, NULL, NULL),\r\n"
-                );
-            } else if (StartEnd == "End") {
-                insertString = "('" + (ExcelTable.Rows[ExcelTableIndex]["規格書"].ToString() + "', '"
-                + ExcelTable.Rows[ExcelTableIndex]["資料行名稱"].ToString() + "', "
-                + TableIndex.ToString() + ", '"
-                + getFIELD_TYPE(ExcelTable.Rows[ExcelTableIndex]["資料類型"].ToString()) + "', '"
-                + getIS_KEY(ExcelTable.Rows[ExcelTableIndex]["KEY"].ToString()) + "', "
-                + getFIELD_LENGTH(ExcelTable.Rows[ExcelTableIndex]["資料類型"].ToString()) + ", '"
-                + ExcelTable.Rows[ExcelTableIndex]["資料行中文名稱"].ToString() + "', "
+                ));
+            } else if (startEnd == "End") {
+                insertString.Append("('" + (excelTable.Rows[excelTableIndex]["規格書"].ToString() + "', '"
+                + excelTable.Rows[excelTableIndex]["資料行名稱"].ToString() + "', "
+                + tableIndex.ToString() + ", '"
+                + GetFIELD_TYPE(excelTable.Rows[excelTableIndex]["資料類型"].ToString()) + "', '"
+                + GetIS_KEY(excelTable.Rows[excelTableIndex]["KEY"].ToString()) + "', "
+                + GetFIELD_LENGTH(excelTable.Rows[excelTableIndex]["資料類型"].ToString()) + ", '"
+                + excelTable.Rows[excelTableIndex]["資料行中文名稱"].ToString() + "', "
                 + "NULL, NULL , NULL, NULL, NULL, NULL, NULL, '"
-                + getIS_NULL(ExcelTable.Rows[ExcelTableIndex]["允許Null"].ToString()) + "', "
+                + GetIS_NULL(excelTable.Rows[excelTableIndex]["允許Null"].ToString()) + "', "
                 + "NULL, NULL , NULL, NULL, NULL, NULL, NULL, NULL, NULL)\r\n"
-                );
+                ));
             } else {
-                insertString = "('" + (ExcelTable.Rows[ExcelTableIndex]["規格書"].ToString() + "', '"
-                + ExcelTable.Rows[ExcelTableIndex]["資料行名稱"].ToString() + "', "
-                + TableIndex.ToString() + ", '"
-                + getFIELD_TYPE(ExcelTable.Rows[ExcelTableIndex]["資料類型"].ToString()) + "', '"
-                + getIS_KEY(ExcelTable.Rows[ExcelTableIndex]["KEY"].ToString()) + "', "
-                + getFIELD_LENGTH(ExcelTable.Rows[ExcelTableIndex]["資料類型"].ToString()) + ", '"
-                + ExcelTable.Rows[ExcelTableIndex]["資料行中文名稱"].ToString() + "', "
+                insertString.Append("('" + (excelTable.Rows[excelTableIndex]["規格書"].ToString() + "', '"
+                + excelTable.Rows[excelTableIndex]["資料行名稱"].ToString() + "', "
+                + tableIndex.ToString() + ", '"
+                + GetFIELD_TYPE(excelTable.Rows[excelTableIndex]["資料類型"].ToString()) + "', '"
+                + GetIS_KEY(excelTable.Rows[excelTableIndex]["KEY"].ToString()) + "', "
+                + GetFIELD_LENGTH(excelTable.Rows[excelTableIndex]["資料類型"].ToString()) + ", '"
+                + excelTable.Rows[excelTableIndex]["資料行中文名稱"].ToString() + "', "
                 + "NULL, NULL , NULL, NULL, NULL, NULL, NULL, '"
-                + getIS_NULL(ExcelTable.Rows[ExcelTableIndex]["允許Null"].ToString()) + "', "
+                + GetIS_NULL(excelTable.Rows[excelTableIndex]["允許Null"].ToString()) + "', "
                 + "NULL, NULL , NULL, NULL, NULL, NULL, NULL, NULL, NULL),\r\n"
-                );
+                ));
             }
 
 
-            return insertString;
+            return insertString.ToString();
         }
 
-        private String getDectionaryString(DataTable ExcelTable, String _startEndLocation, String _primaryKeyLocation) {
-            String InsetString = "INSERT INTO COLDEF(TABLE_NAME,FIELD_NAME,SEQ,FIELD_TYPE,IS_KEY,FIELD_LENGTH,CAPTION,EDITMASK,NEEDBOX,CANREPORT,EXT_MENUID,FIELD_SCALE,DD_NAME,DEFAULT_VALUE,CHECK_NULL,QUERYMODE,CAPTION1,CAPTION2,CAPTION3,CAPTION4,CAPTION5,CAPTION6,CAPTION7,CAPTION8) VALUES \r\n";
-            String[] startEndLocation = _startEndLocation.Split(',');
+        private string GetDectionaryString(DataTable excelTable, string _startEndLocation, string _primaryKeyLocation) {
+            StringBuilder InsetString = new StringBuilder("INSERT INTO COLDEF(TABLE_NAME,FIELD_NAME,SEQ,FIELD_TYPE,IS_KEY,FIELD_LENGTH,CAPTION,EDITMASK,NEEDBOX,CANREPORT,EXT_MENUID,FIELD_SCALE,DD_NAME,DEFAULT_VALUE,CHECK_NULL,QUERYMODE,CAPTION1,CAPTION2,CAPTION3,CAPTION4,CAPTION5,CAPTION6,CAPTION7,CAPTION8) VALUES \r\n");
+            string[] startEndLocation = _startEndLocation.Split(',');
             int startEndLocationIndex = 0;
             int index = 1;
-            Action<int> action = setDegreeOfCompletionText;
+            Action<int> action = SetDegreeOfCompletionText;
 
-            for (int i = 0; i < ExcelTable.Rows.Count; i++) {
+            for (int i = 0; i < excelTable.Rows.Count; i++) {
                 //setDegreeOfCompletionText(i, ExcelTable.Rows.Count);
-                action.Invoke(((i + 1) * 100 / (ExcelTable.Rows.Count)));
+                action.Invoke(((i + 1) * 100 / (excelTable.Rows.Count)));
                 if ("e" + i == startEndLocation[startEndLocation.Length - 1]) {
-                    InsetString += getInsertString(ExcelTable, i, index, "End");
+                    InsetString.Append(GetInsertString(excelTable, i, index, "End"));
                 } else if ("e" + i == startEndLocation[startEndLocationIndex]) {
-                    InsetString += getInsertString(ExcelTable, i, index, "");
+                    InsetString.Append(GetInsertString(excelTable, i, index, ""));
                     startEndLocationIndex++;
                     index = 1;
                 } else {
                     if ("s" + i == startEndLocation[startEndLocationIndex]) {
-                        InsetString += getInsertString(ExcelTable, i, index, "Start");
+                        InsetString.Append(GetInsertString(excelTable, i, index, "Start"));
                         startEndLocationIndex++;
                     }
-                    InsetString += getInsertString(ExcelTable, i, index, "");
+                    InsetString.Append(GetInsertString(excelTable, i, index, ""));
                     index++;
                 }
             }
 
-            return InsetString;
+            return InsetString.ToString();
         }
 
+        private void SetSQLCommandStringText(string commandString) {
 
-        private void setSQL_CommandStringText(String CommandString) {
+            Clipboard.SetData(DataFormats.Text, commandString);
 
-            Clipboard.SetData(DataFormats.Text, CommandString);
-
-            SQL_CommandString.Text = CommandString;
+            SQL_CommandString.Text = commandString;
         }
 
-        private void setDegreeOfCompletionText(int current) {
+        private void SetDegreeOfCompletionText(int current) {
             DegreeOfCompletion.Text = "完成率：" + current + "％";
             progressBar1.Value = current;
             System.Windows.Forms.Application.DoEvents();
         }
 
-        private void resetDegreeOfCompletionText() {
+        private void ResetDegreeOfCompletionText() {
             DegreeOfCompletion.Text = "完成率：" + 0 + "％";
             progressBar1.Value = 0;
         }
@@ -451,31 +436,31 @@ namespace SQLCommandString {
         }
 
         private void button_CreateTable_Click(object sender, EventArgs e) {
-            resetDegreeOfCompletionText();
+            ResetDegreeOfCompletionText();
             DataTable TableValue = ImportExcel();
-            String startEndLocation = getStartEndLocation(TableValue);
-            String primaryKeyLocation = getPrimaryKeyLocation(TableValue);
-            String commandString = getCreateString(TableValue, startEndLocation, primaryKeyLocation);
+            string startEndLocation = GetStartEndLocation(TableValue);
+            string primaryKeyLocation = GetPrimaryKeyLocation(TableValue);
+            string commandString = GetCreateString(TableValue, startEndLocation, primaryKeyLocation);
 
-            setSQL_CommandStringText(commandString);
+            SetSQLCommandStringText(commandString);
         }
 
         private void button_Alter_Click(object sender, EventArgs e) {
-            resetDegreeOfCompletionText();
+            ResetDegreeOfCompletionText();
             DataTable TableValue = ImportExcel();
-            String commandString = getAlterString(TableValue);
+            string commandString = GetAlterString(TableValue);
 
-            setSQL_CommandStringText(commandString);
+            SetSQLCommandStringText(commandString);
         }
 
         private void button_Dectionary_Click(object sender, EventArgs e) {
-            resetDegreeOfCompletionText();
+            ResetDegreeOfCompletionText();
             DataTable TableValue = ImportExcel();
-            String startEndLocation = getStartEndLocation(TableValue);
-            String primaryKeyLocation = getPrimaryKeyLocation(TableValue);
-            String commandString = getDectionaryString(TableValue, startEndLocation, primaryKeyLocation);
+            string startEndLocation = GetStartEndLocation(TableValue);
+            string primaryKeyLocation = GetPrimaryKeyLocation(TableValue);
+            string commandString = GetDectionaryString(TableValue, startEndLocation, primaryKeyLocation);
 
-            setSQL_CommandStringText(commandString);
+            SetSQLCommandStringText(commandString);
         }
     }
 }
