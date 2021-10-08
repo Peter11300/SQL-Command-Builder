@@ -138,6 +138,8 @@
             this.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.Name = "Form_MainPage";
             this.Text = "SQL字串產生";
+            this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.Form_MainPage_FormClosed);
+            this.Load += new System.EventHandler(this.Form_MainPage_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
 
