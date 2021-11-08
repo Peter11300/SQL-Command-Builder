@@ -330,7 +330,7 @@ namespace SQLCommandString {
                         commandDropString.Append(GetAlterDropString(excelTable.Rows[i]));
                         break;
                     case "C":
-                        storedprocedureString.Append(storedprocedureString + GetAlterChangeString(excelTable.Rows[i]));
+                        storedprocedureString.Append(GetAlterChangeString(excelTable.Rows[i]));
                         break;
                     case "M":
                         commandModifyString.Append(GetAlterModifyString(excelTable.Rows[i]));
