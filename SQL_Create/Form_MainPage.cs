@@ -7,11 +7,14 @@ using Excel = Microsoft.Office.Interop.Excel;
 using System.Diagnostics;
 using System.IO;
 
-namespace SQLCommandString {
-    public partial class Form_MainPage : Form {
+namespace SQLCommandString
+{
+    public partial class Form_MainPage : Form
+    {
         string excelPath = "";
 
-        public Form_MainPage() {
+        public Form_MainPage()
+        {
             InitializeComponent();
         }
 
@@ -23,7 +26,8 @@ namespace SQLCommandString {
         //    Excel.Workbook sheet = books.Open(mysheet);
         //}
 
-        public DataTable ImportExcel(string path) {
+        public DataTable ImportExcel(string path)
+        {
             DataTable dataTable = new DataTable();
 
             //定義OleDb======================================================
@@ -57,28 +61,37 @@ namespace SQLCommandString {
             p.WaitForInputIdle();
             p.WaitForExit();
 
-            using (OleDbConnection Connect = new OleDbConnection(connectString)) {
-                try {
+            using (OleDbConnection Connect = new OleDbConnection(connectString))
+            {
+                try
+                {
                     Connect.Open();
-                } catch (Exception ex) {
+                }
+                catch (Exception ex)
+                {
                     MessageBox.Show("請關閉目前開啟的Excel檔案");
                     return dataTable;
                 }
                 //=============================================================
                 DataTable dataTable_sheetname = Connect.GetOleDbSchemaTable(OleDbSchemaGuid.Tables, null);
 
-                foreach (DataRow row in dataTable_sheetname.Rows) {
+                foreach (DataRow row in dataTable_sheetname.Rows)
+                {
                     // Write the sheet name to the screen
 
                     //就是在這取得Sheet Name
                     //=============================================================
 
                     string queryString = "SELECT * FROM [" + row["TABLE_NAME"].ToString() + "]";
-                    try {
-                        using (OleDbDataAdapter dr = new OleDbDataAdapter(queryString, Connect)) {
+                    try
+                    {
+                        using (OleDbDataAdapter dr = new OleDbDataAdapter(queryString, Connect))
+                        {
                             dr.Fill(dataTable);
                         }
-                    } catch (Exception ex) {
+                    }
+                    catch (Exception ex)
+                    {
                         MessageBox.Show("異常訊息:" + ex.Message, "異常訊息");
                     }
                 }
@@ -89,7 +102,8 @@ namespace SQLCommandString {
             return dataTable;
         }
 
-        private DataTable OpenExcelFile() {
+        private DataTable OpenExcelFile()
+        {
             string windowFilter = "Excel files|*.xlsx";
             string windowTitle = "匯入Excel資料";
 
@@ -101,7 +115,8 @@ namespace SQLCommandString {
 
 
 
-            if (openFileDialogFunction.ShowDialog() == DialogResult.OK) {
+            if (openFileDialogFunction.ShowDialog() == DialogResult.OK)
+            {
                 //定義OleDb======================================================
                 //1.檔案位置
                 string FilePath = openFileDialogFunction.FileName;
@@ -133,28 +148,37 @@ namespace SQLCommandString {
                 p.WaitForInputIdle();
                 p.WaitForExit();
 
-                using (OleDbConnection Connect = new OleDbConnection(connectString)) {
-                    try {
+                using (OleDbConnection Connect = new OleDbConnection(connectString))
+                {
+                    try
+                    {
                         Connect.Open();
-                    } catch (Exception ex) {
+                    }
+                    catch (Exception ex)
+                    {
                         MessageBox.Show("請關閉目前開啟的Excel檔案");
                         return dataTable;
                     }
                     //=============================================================
                     DataTable dataTable_sheetname = Connect.GetOleDbSchemaTable(OleDbSchemaGuid.Tables, null);
 
-                    foreach (DataRow row in dataTable_sheetname.Rows) {
+                    foreach (DataRow row in dataTable_sheetname.Rows)
+                    {
                         // Write the sheet name to the screen
 
                         //就是在這取得Sheet Name
                         //=============================================================
 
                         string queryString = "SELECT * FROM [" + row["TABLE_NAME"].ToString() + "]";
-                        try {
-                            using (OleDbDataAdapter dr = new OleDbDataAdapter(queryString, Connect)) {
+                        try
+                        {
+                            using (OleDbDataAdapter dr = new OleDbDataAdapter(queryString, Connect))
+                            {
                                 dr.Fill(dataTable);
                             }
-                        } catch (Exception ex) {
+                        }
+                        catch (Exception ex)
+                        {
                             MessageBox.Show("異常訊息:" + ex.Message, "異常訊息");
                         }
                     }
@@ -165,11 +189,14 @@ namespace SQLCommandString {
             return dataTable;
         }
 
-        private string CreateExcelFile() {
-            string fileName = "SQLCommandString.xlsx";
+        private string CreateExcelFile()
+        {
+            var rand = new Random();
+            string fileName = "SQLCommandString" + rand.Next(1, 100000) + ".xlsx";
             FileInfo fi = new FileInfo(fileName);
             Microsoft.Office.Interop.Excel.Application xlapp = new Microsoft.Office.Interop.Excel.Application();
-            if (xlapp == null) {
+            if (xlapp == null)
+            {
                 MessageBox.Show("請安裝office!!");
             }
             xlapp.Visible = false;//不顯示excel程式
@@ -190,7 +217,8 @@ namespace SQLCommandString {
             ws.Cells[1, 12] = "修改註記V";
             ws.Cells[1, 13] = "原欄位名稱";
 
-            if (ws == null) {
+            if (ws == null)
+            {
                 MessageBox.Show("建立sheet失敗");
             }
 
@@ -211,23 +239,33 @@ namespace SQLCommandString {
             return fullPath;
         }
 
-        private string GetStartEndLocation(DataTable excelTable) {
+        private string GetStartEndLocation(DataTable excelTable)
+        {
             string location = "";
             string oldTableName = "";
             bool firstCheck = true;
-            for (int i = 0; i < excelTable.Rows.Count; i++) {
-                if (excelTable.Rows[i]["修改註記V"].ToString() == "AT") {
-                    if (firstCheck) {
+            for (int i = 0; i < excelTable.Rows.Count; i++)
+            {
+                if (excelTable.Rows[i]["修改註記V"].ToString() == "AT")
+                {
+                    if (firstCheck)
+                    {
                         location += "s" + i;
                         firstCheck = false;
                         oldTableName = excelTable.Rows[i]["規格書"].ToString();
-                    } else {
-                        if (i + 1 < excelTable.Rows.Count) {
-                            if (!(excelTable.Rows[i]["規格書"].ToString().Equals(oldTableName))) {
-                                location += ",e" + (i-1) + ",s" + (i);
+                    }
+                    else
+                    {
+                        if (i + 1 < excelTable.Rows.Count)
+                        {
+                            if (!(excelTable.Rows[i]["規格書"].ToString().Equals(oldTableName)))
+                            {
+                                location += ",e" + (i - 1) + ",s" + (i);
                                 oldTableName = excelTable.Rows[i]["規格書"].ToString();
                             }
-                        } else {
+                        }
+                        else
+                        {
                             location += ",e" + i;
                         }
                     }
@@ -236,27 +274,53 @@ namespace SQLCommandString {
             return location;
         }
 
-        private string GetPrimaryKeyLocation(DataTable excelTable) {
+        private string GetPrimaryKeyLocation(DataTable excelTable)
+        {
             string location = "";
-            for (int i = 0; i < excelTable.Rows.Count; i++) {
-                if (excelTable.Rows[i]["KEY"].ToString() == "P" && excelTable.Rows[i]["修改註記V"].ToString() == "AT") {
+            for (int i = 0; i < excelTable.Rows.Count; i++)
+            {
+                if (excelTable.Rows[i]["KEY"].ToString() == "P" &&
+                    excelTable.Rows[i]["修改註記V"].ToString() == "AT")
+                {
                     location += "p" + i + ",";
                 }
             }
             return location;
         }
 
-        private string GetColumnString(DataTable excelTable, int excelTableIndex) {
-            string columnString = "";
-            if (excelTable.Rows[excelTableIndex]["備註"].ToString().ToUpper() == "IDENTIFY") {
-                columnString = excelTable.Rows[excelTableIndex]["資料行名稱"].ToString() + " " + excelTable.Rows[excelTableIndex]["資料類型"].ToString() + " " + "IDENTITY(1, 1)" + " " + excelTable.Rows[excelTableIndex]["允許Null"].ToString() + ", \r\n";
-            } else {
-                columnString = excelTable.Rows[excelTableIndex]["資料行名稱"].ToString() + " " + excelTable.Rows[excelTableIndex]["資料類型"].ToString() + " " + excelTable.Rows[excelTableIndex]["允許Null"].ToString() + ", \r\n";
+        private string GetColumnString(DataTable excelTable, int excelTableIndex)
+        {
+            StringBuilder columnString = new StringBuilder();
+
+            columnString.Append(
+                excelTable.Rows[excelTableIndex]["資料行名稱"].ToString() + " " +
+                excelTable.Rows[excelTableIndex]["資料類型"].ToString() + " "
+                );
+
+
+
+            if (excelTable.Rows[excelTableIndex]["備註"].ToString().ToUpper() == "IDENTIFY")
+            {
+                columnString.Append("IDENTITY(1, 1)" + " ");
             }
-            return columnString;
+
+            columnString.Append(excelTable.Rows[excelTableIndex]["允許Null"].ToString() + " ");
+
+            if (excelTable.Rows[excelTableIndex]["Constraint"].ToString().Contains("預設"))
+            {
+                string constraintStr = excelTable.Rows[excelTableIndex]["Constraint"].ToString();
+                int startIndex = constraintStr.Contains("=") ? constraintStr.IndexOf("=") + 1 : 2;
+                string def = constraintStr.Substring(startIndex, constraintStr.Length - startIndex);
+                columnString.Append("DEFAULT " + def + " ");
+            }
+
+            columnString.Append(", \r\n");
+
+            return columnString.ToString();
         }
 
-        private string GetCreateString(DataTable excelTable, string _startEndLocation, string _primaryKeyLocation) {
+        private string GetCreateString(DataTable excelTable, string _startEndLocation, string _primaryKeyLocation)
+        {
             string[] startEndLocation = _startEndLocation.Split(',');
             string[] primaryKeyLocation = _primaryKeyLocation.Split(',');
             int startEndLocationIndex = 0;
@@ -267,22 +331,35 @@ namespace SQLCommandString {
             bool primaryCheck = true;
             Action<int> action = SetDegreeOfCompletionText;
 
-            for (int i = 0; i < excelTable.Rows.Count; i++) {
+            for (int i = 0; i < excelTable.Rows.Count; i++)
+            {
                 //setDegreeOfCompletionText(i, ExcelTable.Rows.Count);
                 action.Invoke(((i + 1) * 100 / (excelTable.Rows.Count)));
-                if (excelTable.Rows[i]["修改註記V"].ToString() == "AT") {
-                    if ("p" + i == primaryKeyLocation[primaryKeyLocationIndex]) {
-                        if (primaryCheck == false) {
-                            primaryString = primaryString + "," + excelTable.Rows[i]["資料行名稱"].ToString();
+                if (excelTable.Rows[i]["修改註記V"].ToString() == "AT")
+                {
+                    if ("p" + i == primaryKeyLocation[primaryKeyLocationIndex])
+                    {
+                        if (primaryCheck == false)
+                        {
+                            primaryString =
+                                primaryString + "," +
+                                excelTable.Rows[i]["資料行名稱"].ToString();
+
                             primaryKeyLocationIndex++;
-                        } else {
-                            primaryString = primaryString + excelTable.Rows[i]["資料行名稱"].ToString();
+                        }
+                        else
+                        {
+                            primaryString =
+                                primaryString +
+                                excelTable.Rows[i]["資料行名稱"].ToString();
+
                             primaryCheck = false;
                             primaryKeyLocationIndex++;
                         }
                     }
 
-                    if ("e" + i == startEndLocation[startEndLocationIndex]) {
+                    if ("e" + i == startEndLocation[startEndLocationIndex])
+                    {
 
                         temp_commandString.Append(GetColumnString(excelTable, i));
 
@@ -294,10 +371,18 @@ namespace SQLCommandString {
                         temp_commandString.Clear();
                         startEndLocationIndex++;
                         primaryCheck = true;
-                    } else {
-                        if ("s" + i == startEndLocation[startEndLocationIndex]) {
+                    }
+                    else
+                    {
+                        if ("s" + i == startEndLocation[startEndLocationIndex])
+                        {
                             string createTableString = "CREATE TABLE ";
-                            createTableString = createTableString + excelTable.Rows[i]["規格書"].ToString() + "\r\n( \r\n";
+
+                            createTableString =
+                                createTableString +
+                                excelTable.Rows[i]["規格書"].ToString() +
+                                "\r\n( \r\n";
+
                             temp_commandString.Append(createTableString);
                             startEndLocationIndex++;
                         }
@@ -311,7 +396,8 @@ namespace SQLCommandString {
             return commandString.ToString();
         }
 
-        private string GetAlterString(DataTable excelTable) {
+        private string GetAlterString(DataTable excelTable)
+        {
             StringBuilder commandString = new StringBuilder("");
             StringBuilder commandAddString = new StringBuilder("");
             StringBuilder commandDropString = new StringBuilder("");
@@ -319,10 +405,12 @@ namespace SQLCommandString {
             StringBuilder storedprocedureString = new StringBuilder("");
             Action<int> action = SetDegreeOfCompletionText;
 
-            for (int i = 0; i < excelTable.Rows.Count; i++) {
+            for (int i = 0; i < excelTable.Rows.Count; i++)
+            {
                 //setDegreeOfCompletionText(i, ExcelTable.Rows.Count);
                 action.Invoke(((i + 1) * 100 / (excelTable.Rows.Count)));
-                switch (excelTable.Rows[i]["修改註記V"].ToString()) {
+                switch (excelTable.Rows[i]["修改註記V"].ToString())
+                {
                     case "A":
                         commandAddString.Append(GetAlterAddString(excelTable.Rows[i]));
                         break;
@@ -338,9 +426,12 @@ namespace SQLCommandString {
                 }
             }
 
-            commandString.Append(commandAddString.ToString() + commandDropString.ToString() + commandModifyString.ToString());
+            commandString.Append(commandAddString.ToString());
+            commandString.Append(commandDropString.ToString());
+            commandString.Append(commandModifyString.ToString());
 
-            if (!string.IsNullOrEmpty(storedprocedureString.ToString())) {
+            if (!string.IsNullOrEmpty(storedprocedureString.ToString()))
+            {
                 commandString.Append("\r\n---------- 以下請逐行執行 ----------\r\n");
                 commandString.Append(storedprocedureString);
             }
@@ -348,50 +439,85 @@ namespace SQLCommandString {
             return commandString.ToString();
         }
 
-        private string GetAlterAddString(DataRow dataRow) {
-            string commandString = "";
+        private string GetAlterAddString(DataRow dataRow)
+        {
+            StringBuilder commandString = new StringBuilder();
 
-            if (dataRow["備註"].ToString().ToUpper() == "IDENTIFY") {
-                commandString = commandString + "ALTER TABLE " + dataRow["規格書"].ToString() + " ADD " + dataRow["資料行名稱"].ToString() + " " + dataRow["資料類型"].ToString() + " " + "IDENTITY(1, 1)" + " ;\r\n";
-            } else {
-                commandString = commandString + "ALTER TABLE " + dataRow["規格書"].ToString() + " ADD " + dataRow["資料行名稱"].ToString() + " " + dataRow["資料類型"].ToString() + " ;\r\n";
+            commandString.Append(
+                "ALTER TABLE " +
+                dataRow["規格書"].ToString() +
+                " ADD " +
+                dataRow["資料行名稱"].ToString() + " " +
+                dataRow["資料類型"].ToString() + " "
+                );
+
+            if (dataRow["備註"].ToString().ToUpper() == "IDENTIFY")
+            {
+                commandString.Append("IDENTITY(1, 1) ");
             }
 
-            return commandString;
+            commandString.Append(" ;\r\n");
+
+            return commandString.ToString();
         }
 
-        private string GetAlterDropString(DataRow dataRow) {
-            string commandString = "";
+        private string GetAlterDropString(DataRow dataRow)
+        {
+            StringBuilder commandString = new StringBuilder();
 
-            commandString = commandString + "ALTER TABLE " + dataRow["規格書"].ToString() + " DROP COLUMN " + dataRow["資料行名稱"].ToString() + " ;\r\n";
+            commandString.Append(
+                "ALTER TABLE " +
+                dataRow["規格書"].ToString() +
+                " DROP COLUMN " +
+                dataRow["資料行名稱"].ToString() +
+                " ;\r\n"
+                );
 
-            return commandString;
+            return commandString.ToString();
         }
 
-        private string GetAlterChangeString(DataRow dataRow) {
-            string commandString = "";
+        private string GetAlterChangeString(DataRow dataRow)
+        {
+            StringBuilder commandString = new StringBuilder();
 
-            commandString = commandString + "\r\n sp_rename '" + dataRow["規格書"].ToString() + "." + dataRow["原欄位名稱"].ToString() + "', '" + dataRow["資料行名稱"].ToString() + "', '" + "COLUMN' ;\r\n";
+            commandString.Append(
+                "\r\n sp_rename '" +
+                dataRow["規格書"].ToString() + "." +
+                dataRow["原欄位名稱"].ToString() + "', '" +
+                dataRow["資料行名稱"].ToString() + "', '" +
+                "COLUMN' ;\r\n"
+                );
 
-            return commandString;
+            return commandString.ToString();
         }
 
-        private string GetAlterModifyString(DataRow dataRow) {
-            string commandString = "";
+        private string GetAlterModifyString(DataRow dataRow)
+        {
+            StringBuilder commandString = new StringBuilder();
 
-            commandString = commandString + "ALTER TABLE " + dataRow["規格書"].ToString() + " ALTER COLUMN " + dataRow["資料行名稱"].ToString() + " " + dataRow["資料類型"].ToString() + " ;\r\n";
+            commandString.Append(
+                "ALTER TABLE " +
+                dataRow["規格書"].ToString() +
+                " ALTER COLUMN " +
+                dataRow["資料行名稱"].ToString() + " " +
+                dataRow["資料類型"].ToString() +
+                " ;\r\n"
+                );
 
-            return commandString;
+            return commandString.ToString();
         }
 
-        private string GetFIELD_TYPE(string inputString) {
+        private string GetFIELD_TYPE(string inputString)
+        {
             return (inputString.Contains("(")) ? inputString.Substring(0, inputString.IndexOf("(")) : inputString;
         }
 
-        private string GetFIELD_LENGTH(string inputString) {
+        private string GetFIELD_LENGTH(string inputString)
+        {
             string variableType = (inputString.Contains("(")) ? inputString.Substring(0, inputString.IndexOf("(")) : inputString;
 
-            switch (variableType) {
+            switch (variableType)
+            {
                 case "int":
                     return "4";
                 case "bigint":
@@ -440,52 +566,66 @@ namespace SQLCommandString {
             }
         }
 
-        private string GetIS_KEY(string inputString) {
+        private string GetIS_KEY(string inputString)
+        {
             return (inputString == "P") ? "Y" : "N";
         }
 
-        private string GetIS_NULL(string inputString) {
+        private string GetIS_NULL(string inputString)
+        {
             return (inputString == "NULL") ? "N" : "Y";
         }
 
-        private string GetInsertString(DataTable excelTable, int excelTableIndex, int tableIndex, string startEnd) {
+        private string GetInsertString(DataTable excelTable, int excelTableIndex, int tableIndex, string startEnd)
+        {
             StringBuilder insertString = new StringBuilder("");
 
-            if (startEnd == "Start") {
-                insertString.Append("('" + (excelTable.Rows[excelTableIndex]["規格書"].ToString() + "', '"
-                + "*" + "', "
-                + "0" + ", "
-                + "NULL" + ", '"
-                + "N" + "', "
-                + "NULL" + ", '"
-                + excelTable.Rows[excelTableIndex]["規格書名稱"].ToString() + "', "
-                + "NULL, NULL , NULL, NULL, NULL, NULL, NULL, "
-                + "NULL" + ", "
-                + "NULL, NULL , NULL, NULL, NULL, NULL, NULL, NULL, NULL),\r\n"
+            if (startEnd == "Start")
+            {
+                insertString.Append(
+                    "('" +
+                    (excelTable.Rows[excelTableIndex]["規格書"].ToString() + "', '" +
+                    "*" + "', " +
+                    "0" + ", " +
+                    "NULL" + ", '" +
+                    "N" + "', " +
+                    "NULL" + ", '" +
+                    excelTable.Rows[excelTableIndex]["規格書名稱"].ToString() + "', " +
+                    "NULL, NULL , NULL, NULL, NULL, NULL, NULL, " +
+                    "NULL" + ", " +
+                    "NULL, NULL , NULL, NULL, NULL, NULL, NULL, NULL, NULL),\r\n"
                 ));
-            } else if (startEnd == "End") {
-                insertString.Append("('" + (excelTable.Rows[excelTableIndex]["規格書"].ToString() + "', '"
-                + excelTable.Rows[excelTableIndex]["資料行名稱"].ToString() + "', "
-                + tableIndex.ToString() + ", '"
-                + GetFIELD_TYPE(excelTable.Rows[excelTableIndex]["資料類型"].ToString()) + "', '"
-                + GetIS_KEY(excelTable.Rows[excelTableIndex]["KEY"].ToString()) + "', "
-                + GetFIELD_LENGTH(excelTable.Rows[excelTableIndex]["資料類型"].ToString()) + ", '"
-                + excelTable.Rows[excelTableIndex]["資料行中文名稱"].ToString() + "', "
-                + "NULL, NULL , NULL, NULL, NULL, NULL, NULL, '"
-                + GetIS_NULL(excelTable.Rows[excelTableIndex]["允許Null"].ToString()) + "', "
-                + "NULL, NULL , NULL, NULL, NULL, NULL, NULL, NULL, NULL)\r\n"
+            }
+            else if (startEnd == "End")
+            {
+                insertString.Append(
+                    "('" +
+                    (excelTable.Rows[excelTableIndex]["規格書"].ToString() + "', '" +
+                    excelTable.Rows[excelTableIndex]["資料行名稱"].ToString() + "', " +
+                    tableIndex.ToString() + ", '" +
+                    GetFIELD_TYPE(excelTable.Rows[excelTableIndex]["資料類型"].ToString()) + "', '" +
+                    GetIS_KEY(excelTable.Rows[excelTableIndex]["KEY"].ToString()) + "', " +
+                    GetFIELD_LENGTH(excelTable.Rows[excelTableIndex]["資料類型"].ToString()) + ", '" +
+                    excelTable.Rows[excelTableIndex]["資料行中文名稱"].ToString() + "', " +
+                    "NULL, NULL , NULL, NULL, NULL, NULL, NULL, '" +
+                    GetIS_NULL(excelTable.Rows[excelTableIndex]["允許Null"].ToString()) + "', " +
+                    "NULL, NULL , NULL, NULL, NULL, NULL, NULL, NULL, NULL)\r\n"
                 ));
-            } else {
-                insertString.Append("('" + (excelTable.Rows[excelTableIndex]["規格書"].ToString() + "', '"
-                + excelTable.Rows[excelTableIndex]["資料行名稱"].ToString() + "', "
-                + tableIndex.ToString() + ", '"
-                + GetFIELD_TYPE(excelTable.Rows[excelTableIndex]["資料類型"].ToString()) + "', '"
-                + GetIS_KEY(excelTable.Rows[excelTableIndex]["KEY"].ToString()) + "', "
-                + GetFIELD_LENGTH(excelTable.Rows[excelTableIndex]["資料類型"].ToString()) + ", '"
-                + excelTable.Rows[excelTableIndex]["資料行中文名稱"].ToString() + "', "
-                + "NULL, NULL , NULL, NULL, NULL, NULL, NULL, '"
-                + GetIS_NULL(excelTable.Rows[excelTableIndex]["允許Null"].ToString()) + "', "
-                + "NULL, NULL , NULL, NULL, NULL, NULL, NULL, NULL, NULL),\r\n"
+            }
+            else
+            {
+                insertString.Append(
+                    "('" +
+                    (excelTable.Rows[excelTableIndex]["規格書"].ToString() + "', '" +
+                    excelTable.Rows[excelTableIndex]["資料行名稱"].ToString() + "', " +
+                    tableIndex.ToString() + ", '" +
+                    GetFIELD_TYPE(excelTable.Rows[excelTableIndex]["資料類型"].ToString()) + "', '" +
+                    GetIS_KEY(excelTable.Rows[excelTableIndex]["KEY"].ToString()) + "', " +
+                    GetFIELD_LENGTH(excelTable.Rows[excelTableIndex]["資料類型"].ToString()) + ", '" +
+                    excelTable.Rows[excelTableIndex]["資料行中文名稱"].ToString() + "', " +
+                    "NULL, NULL , NULL, NULL, NULL, NULL, NULL, '" +
+                    GetIS_NULL(excelTable.Rows[excelTableIndex]["允許Null"].ToString()) + "', " +
+                    "NULL, NULL , NULL, NULL, NULL, NULL, NULL, NULL, NULL),\r\n"
                 ));
             }
 
@@ -493,24 +633,33 @@ namespace SQLCommandString {
             return insertString.ToString();
         }
 
-        private string GetDectionaryString(DataTable excelTable, string _startEndLocation, string _primaryKeyLocation) {
+        private string GetDectionaryString(DataTable excelTable, string _startEndLocation, string _primaryKeyLocation)
+        {
             StringBuilder InsetString = new StringBuilder("INSERT INTO COLDEF(TABLE_NAME,FIELD_NAME,SEQ,FIELD_TYPE,IS_KEY,FIELD_LENGTH,CAPTION,EDITMASK,NEEDBOX,CANREPORT,EXT_MENUID,FIELD_SCALE,DD_NAME,DEFAULT_VALUE,CHECK_NULL,QUERYMODE,CAPTION1,CAPTION2,CAPTION3,CAPTION4,CAPTION5,CAPTION6,CAPTION7,CAPTION8) VALUES \r\n");
             string[] startEndLocation = _startEndLocation.Split(',');
             int startEndLocationIndex = 0;
             int index = 1;
             Action<int> action = SetDegreeOfCompletionText;
 
-            for (int i = 0; i < excelTable.Rows.Count; i++) {
+            for (int i = 0; i < excelTable.Rows.Count; i++)
+            {
                 action.Invoke(((i + 1) * 100 / (excelTable.Rows.Count)));
-                if (excelTable.Rows[i]["修改註記V"].ToString() == "AT") {
-                    if ("e" + i == startEndLocation[startEndLocation.Length - 1]) {
+                if (excelTable.Rows[i]["修改註記V"].ToString() == "AT")
+                {
+                    if ("e" + i == startEndLocation[startEndLocation.Length - 1])
+                    {
                         InsetString.Append(GetInsertString(excelTable, i, index, "End"));
-                    } else if ("e" + i == startEndLocation[startEndLocationIndex]) {
+                    }
+                    else if ("e" + i == startEndLocation[startEndLocationIndex])
+                    {
                         InsetString.Append(GetInsertString(excelTable, i, index, ""));
                         startEndLocationIndex++;
                         index = 1;
-                    } else {
-                        if ("s" + i == startEndLocation[startEndLocationIndex]) {
+                    }
+                    else
+                    {
+                        if ("s" + i == startEndLocation[startEndLocationIndex])
+                        {
                             InsetString.Append(GetInsertString(excelTable, i, index, "Start"));
                             startEndLocationIndex++;
                         }
@@ -523,30 +672,35 @@ namespace SQLCommandString {
             return InsetString.ToString();
         }
 
-        private void SetSQLCommandStringText(string commandString) {
+        private void SetSQLCommandStringText(string commandString)
+        {
 
             Clipboard.SetData(DataFormats.Text, commandString);
 
             SQL_CommandString.Text = commandString;
         }
 
-        private void SetDegreeOfCompletionText(int current) {
+        private void SetDegreeOfCompletionText(int current)
+        {
             DegreeOfCompletion.Text = "完成率：" + current + "％";
             progressBar1.Value = current;
             System.Windows.Forms.Application.DoEvents();
         }
 
-        private void ResetDegreeOfCompletionText() {
+        private void ResetDegreeOfCompletionText()
+        {
             DegreeOfCompletion.Text = "完成率：" + 0 + "％";
             progressBar1.Value = 0;
         }
 
-        private void button_Cooy_Click(object sender, EventArgs e) {
+        private void button_Cooy_Click(object sender, EventArgs e)
+        {
             SQL_CommandString.SelectAll();
             SQL_CommandString.Copy();
         }
 
-        private void button_CreateTable_Click(object sender, EventArgs e) {
+        private void button_CreateTable_Click(object sender, EventArgs e)
+        {
             ResetDegreeOfCompletionText();
             DataTable TableValue = ImportExcel(excelPath);
 
@@ -560,7 +714,8 @@ namespace SQLCommandString {
             SetSQLCommandStringText(commandString);
         }
 
-        private void button_Alter_Click(object sender, EventArgs e) {
+        private void button_Alter_Click(object sender, EventArgs e)
+        {
             ResetDegreeOfCompletionText();
             DataTable TableValue = ImportExcel(excelPath);
 
@@ -572,7 +727,8 @@ namespace SQLCommandString {
             SetSQLCommandStringText(commandString);
         }
 
-        private void button_Dectionary_Click(object sender, EventArgs e) {
+        private void button_Dectionary_Click(object sender, EventArgs e)
+        {
             ResetDegreeOfCompletionText();
             DataTable TableValue = ImportExcel(excelPath);
 
@@ -586,14 +742,16 @@ namespace SQLCommandString {
             SetSQLCommandStringText(commandString);
         }
 
-        private void Form_MainPage_Load(object sender, EventArgs e) {
+        private void Form_MainPage_Load(object sender, EventArgs e)
+        {
             excelPath = CreateExcelFile();
         }
 
-        private void Form_MainPage_FormClosed(object sender, FormClosedEventArgs e) {
+        private void Form_MainPage_FormClosed(object sender, FormClosedEventArgs e)
+        {
             File.Delete(excelPath);
         }
-                
+
     }
 }
 

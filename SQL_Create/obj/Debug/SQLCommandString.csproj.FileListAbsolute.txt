@@ -25,4 +25,6 @@ D:\Portfolio\CreateSQLCommandString\SQL_Create\bin\Debug\SQLCommandString.pdb
 D:\Portfolio\CreateSQLCommandString\SQL_Create\obj\Debug\SQLCommandString.Form_MainPage.resources
 D:\Portfolio\CreateSQLCommandString\SQL_Create\obj\Debug\SQLCommandString.Properties.Resources.resources
 D:\Portfolio\CreateSQLCommandString\SQL_Create\obj\Debug\SQLCommandString.csproj.GenerateResource.Cache
-D:\Portfolio\CreateSQLCommandString\SQL_Create\obj\Debug\SQLCommandString.csprojResolveAssemblyReference.cache
+D:\Portfolio\CreateSQLCommandString\SQL_Create\obj\Debug\SQLCommandString.csproj.AssemblyReference.cache
+D:\Portfolio\CreateSQLCommandString\SQL_Create\obj\Debug\SQLCommandString.csproj.SuggestedBindingRedirects.cache
+D:\Portfolio\CreateSQLCommandString\SQL_Create\obj\Debug\SQLCommandString.csproj.CoreCompileInputs.cache
