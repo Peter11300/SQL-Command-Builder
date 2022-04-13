@@ -456,7 +456,17 @@ namespace SQLCommandString
                 commandString.Append("IDENTITY(1, 1) ");
             }
 
-            commandString.Append(" ;\r\n");
+            commandString.Append(dataRow["允許Null"].ToString() + " ");
+
+            if (dataRow["Constraint"].ToString().Contains("預設"))
+            {
+                string constraintStr = dataRow["Constraint"].ToString();
+                int startIndex = constraintStr.Contains("=") ? constraintStr.IndexOf("=") + 1 : 2;
+                string def = constraintStr.Substring(startIndex, constraintStr.Length - startIndex);
+                commandString.Append("DEFAULT " + def + " ");
+            }
+
+            commandString.Append("; \r\n");
 
             return commandString.ToString();
         }
