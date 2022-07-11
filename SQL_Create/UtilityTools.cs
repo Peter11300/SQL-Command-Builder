@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Data;
 using System.Data.OleDb;
 using System.Diagnostics;
@@ -224,9 +225,10 @@ namespace SQLCommandString
             return fullPath;
         }
 
-        public static string GetStartEndLocation(DataTable excelTable)
+        public static List<string> GetStartEndLocation(DataTable excelTable)
         {
-            string location = "";
+            List<string> location = new List<string>();
+            //string location = "";
             string oldTableName = "";
             bool firstCheck = true;
             for (int i = 0; i < excelTable.Rows.Count; i++)
@@ -235,7 +237,7 @@ namespace SQLCommandString
                 {
                     if (firstCheck)
                     {
-                        location += "s" + i;
+                        location.Add ($"s{i}");
                         firstCheck = false;
                         oldTableName = excelTable.Rows[i]["規格書"].ToString();
                     }
@@ -245,13 +247,14 @@ namespace SQLCommandString
                         {
                             if (!(excelTable.Rows[i]["規格書"].ToString().Equals(oldTableName)))
                             {
-                                location += ",e" + (i - 1) + ",s" + (i);
+                                location.Add($"e{(i - 1)}");
+                                location.Add($"s{i}");
                                 oldTableName = excelTable.Rows[i]["規格書"].ToString();
                             }
                         }
                         else
                         {
-                            location += ",e" + i;
+                            location.Add($"e{i}");
                         }
                     }
                 }
@@ -259,15 +262,15 @@ namespace SQLCommandString
             return location;
         }
 
-        public static string GetPrimaryKeyLocation(DataTable excelTable)
+        public static List<string> GetPrimaryKeyLocation(DataTable excelTable)
         {
-            string location = "";
+            List<string> location = new List<string>();
             for (int i = 0; i < excelTable.Rows.Count; i++)
             {
                 if (excelTable.Rows[i]["KEY"].ToString() == "P" &&
                     excelTable.Rows[i]["修改註記V"].ToString() == "AT")
                 {
-                    location += "p" + i + ",";
+                    location.Add($"p{i}") ;
                 }
             }
             return location;
@@ -286,7 +289,7 @@ namespace SQLCommandString
 
             if (excelTable.Rows[excelTableIndex]["備註"].ToString().ToUpper() == "IDENTIFY")
             {
-                columnString.Append("IDENTITY(1, 1)" + " ");
+                columnString.Append("IDENTITY(1, 1) ");
             }
 
             columnString.Append(excelTable.Rows[excelTableIndex]["允許Null"].ToString() + " ");
@@ -296,7 +299,7 @@ namespace SQLCommandString
                 string constraintStr = excelTable.Rows[excelTableIndex]["Constraint"].ToString();
                 int startIndex = constraintStr.Contains("=") ? constraintStr.IndexOf("=") + 1 : 2;
                 string def = constraintStr.Substring(startIndex, constraintStr.Length - startIndex);
-                columnString.Append("DEFAULT " + def + " ");
+                columnString.Append($"DEFAULT {def} ");
             }
 
             columnString.Append(", \r\n");
@@ -304,25 +307,23 @@ namespace SQLCommandString
             return columnString.ToString();
         }
 
-        public static string GetCreateString(DataTable excelTable, string _startEndLocation, string _primaryKeyLocation)
-        {
-            string[] startEndLocation = _startEndLocation.Split(',');
-            string[] primaryKeyLocation = _primaryKeyLocation.Split(',');
+        public static string GetCreateString(DataTable excelTable, List<string> startEndLocationList, List<string> primaryKeyLocationList)
+        {     
             int startEndLocationIndex = 0;
             int primaryKeyLocationIndex = 0;
             StringBuilder commandString = new StringBuilder("");
             StringBuilder temp_commandString = new StringBuilder("");
             string primaryString = "\r\nPRIMARY KEY(";
             bool primaryCheck = true;
-            Action<int> action = SetDegreeOfCompletionText;
+            //Action<int> action = SetDegreeOfCompletionText;
 
             for (int i = 0; i < excelTable.Rows.Count; i++)
             {
                 //setDegreeOfCompletionText(i, ExcelTable.Rows.Count);
-                action.Invoke(((i + 1) * 100 / (excelTable.Rows.Count)));
+                //action.Invoke(((i + 1) * 100 / (excelTable.Rows.Count)));
                 if (excelTable.Rows[i]["修改註記V"].ToString() == "AT")
                 {
-                    if ("p" + i == primaryKeyLocation[primaryKeyLocationIndex])
+                    if (primaryKeyLocationIndex < primaryKeyLocationList.Count && $"p{i}"  == primaryKeyLocationList[primaryKeyLocationIndex])
                     {
                         if (primaryCheck == false)
                         {
@@ -343,7 +344,7 @@ namespace SQLCommandString
                         }
                     }
 
-                    if ("e" + i == startEndLocation[startEndLocationIndex])
+                    if ($"e{i}"  == startEndLocationList[startEndLocationIndex])
                     {
 
                         temp_commandString.Append(GetColumnString(excelTable, i));
@@ -359,7 +360,7 @@ namespace SQLCommandString
                     }
                     else
                     {
-                        if ("s" + i == startEndLocation[startEndLocationIndex])
+                        if ($"s{i}" == startEndLocationList[startEndLocationIndex])
                         {
                             string createTableString = "CREATE TABLE ";
 
@@ -388,12 +389,12 @@ namespace SQLCommandString
             StringBuilder commandDropString = new StringBuilder("");
             StringBuilder commandModifyString = new StringBuilder("");
             StringBuilder storedprocedureString = new StringBuilder("");
-            Action<int> action = SetDegreeOfCompletionText;
+            //Action<int> action = SetDegreeOfCompletionText;
 
             for (int i = 0; i < excelTable.Rows.Count; i++)
             {
                 //setDegreeOfCompletionText(i, ExcelTable.Rows.Count);
-                action.Invoke(((i + 1) * 100 / (excelTable.Rows.Count)));
+                //action.Invoke(((i + 1) * 100 / (excelTable.Rows.Count)));
                 switch (excelTable.Rows[i]["修改註記V"].ToString())
                 {
                     case "A":
@@ -448,7 +449,7 @@ namespace SQLCommandString
                 string constraintStr = dataRow["Constraint"].ToString();
                 int startIndex = constraintStr.Contains("=") ? constraintStr.IndexOf("=") + 1 : 2;
                 string def = constraintStr.Substring(startIndex, constraintStr.Length - startIndex);
-                commandString.Append("DEFAULT " + def + " ");
+                commandString.Append($"DEFAULT {def} ");
             }
 
             commandString.Append("; \r\n");
@@ -628,24 +629,24 @@ namespace SQLCommandString
             return insertString.ToString();
         }
 
-        public static string GetDectionaryString(DataTable excelTable, string _startEndLocation, string _primaryKeyLocation)
+        public static string GetDectionaryString(DataTable excelTable, List<string> startEndLocationList)
         {
             StringBuilder InsetString = new StringBuilder("INSERT INTO COLDEF(TABLE_NAME,FIELD_NAME,SEQ,FIELD_TYPE,IS_KEY,FIELD_LENGTH,CAPTION,EDITMASK,NEEDBOX,CANREPORT,EXT_MENUID,FIELD_SCALE,DD_NAME,DEFAULT_VALUE,CHECK_NULL,QUERYMODE,CAPTION1,CAPTION2,CAPTION3,CAPTION4,CAPTION5,CAPTION6,CAPTION7,CAPTION8) VALUES \r\n");
-            string[] startEndLocation = _startEndLocation.Split(',');
+            //string[] startEndLocation = _startEndLocation.Split(',');
             int startEndLocationIndex = 0;
             int index = 1;
-            Action<int> action = SetDegreeOfCompletionText;
+            //Action<int> action = SetDegreeOfCompletionText;
 
             for (int i = 0; i < excelTable.Rows.Count; i++)
             {
-                action.Invoke(((i + 1) * 100 / (excelTable.Rows.Count)));
+                //action.Invoke(((i + 1) * 100 / (excelTable.Rows.Count)));
                 if (excelTable.Rows[i]["修改註記V"].ToString() == "AT")
                 {
-                    if ("e" + i == startEndLocation[startEndLocation.Length - 1])
+                    if ($"e{i}"  == startEndLocationList[startEndLocationList.Count - 1])
                     {
                         InsetString.Append(GetInsertString(excelTable, i, index, "End"));
                     }
-                    else if ("e" + i == startEndLocation[startEndLocationIndex])
+                    else if ($"e{i}" == startEndLocationList[startEndLocationIndex])
                     {
                         InsetString.Append(GetInsertString(excelTable, i, index, ""));
                         startEndLocationIndex++;
@@ -653,7 +654,7 @@ namespace SQLCommandString
                     }
                     else
                     {
-                        if ("s" + i == startEndLocation[startEndLocationIndex])
+                        if ($"s{i}" == startEndLocationList[startEndLocationIndex])
                         {
                             InsetString.Append(GetInsertString(excelTable, i, index, "Start"));
                             startEndLocationIndex++;
@@ -667,6 +668,11 @@ namespace SQLCommandString
             return InsetString.ToString();
         }
 
-
+        //public static void SetDegreeOfCompletionText(int current)
+        //{
+        //    DegreeOfCompletion.Text = "完成率：" + current + "％";
+        //    progressBar1.Value = current;
+        //    System.Windows.Forms.Application.DoEvents();
+        //}
     }
 }
