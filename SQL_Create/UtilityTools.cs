@@ -285,8 +285,6 @@ namespace SQLCommandString
                 excelTable.Rows[excelTableIndex]["資料類型"].ToString() + " "
                 );
 
-
-
             if (excelTable.Rows[excelTableIndex]["備註"].ToString().ToUpper() == "IDENTIFY")
             {
                 columnString.Append("IDENTITY(1, 1) ");

@@ -24,7 +24,7 @@
         /// </summary>
         private void InitializeComponent() {
             this.button_Create = new System.Windows.Forms.Button();
-            this.SQL_CommandString = new System.Windows.Forms.TextBox();
+            this.SQLCommandString = new System.Windows.Forms.TextBox();
             this.button_Alter = new System.Windows.Forms.Button();
             this.DegreeOfCompletion = new System.Windows.Forms.Label();
             this.button_Cooy = new System.Windows.Forms.Button();
@@ -47,17 +47,17 @@
             this.button_Create.UseVisualStyleBackColor = false;
             this.button_Create.Click += new System.EventHandler(this.button_CreateTable_Click);
             // 
-            // SQL_CommandString
+            // SQLCommandString
             // 
-            this.SQL_CommandString.HideSelection = false;
-            this.SQL_CommandString.Location = new System.Drawing.Point(127, 13);
-            this.SQL_CommandString.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.SQL_CommandString.Multiline = true;
-            this.SQL_CommandString.Name = "SQL_CommandString";
-            this.SQL_CommandString.ReadOnly = true;
-            this.SQL_CommandString.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.SQL_CommandString.Size = new System.Drawing.Size(459, 405);
-            this.SQL_CommandString.TabIndex = 4;
+            this.SQLCommandString.HideSelection = false;
+            this.SQLCommandString.Location = new System.Drawing.Point(127, 13);
+            this.SQLCommandString.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.SQLCommandString.Multiline = true;
+            this.SQLCommandString.Name = "SQLCommandString";
+            this.SQLCommandString.ReadOnly = true;
+            this.SQLCommandString.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
+            this.SQLCommandString.Size = new System.Drawing.Size(459, 405);
+            this.SQLCommandString.TabIndex = 4;
             // 
             // button_Alter
             // 
@@ -133,7 +133,7 @@
             this.Controls.Add(this.button_Cooy);
             this.Controls.Add(this.DegreeOfCompletion);
             this.Controls.Add(this.button_Alter);
-            this.Controls.Add(this.SQL_CommandString);
+            this.Controls.Add(this.SQLCommandString);
             this.Controls.Add(this.button_Create);
             this.Font = new System.Drawing.Font("微軟正黑體", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
             this.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
@@ -148,7 +148,7 @@
 
         #endregion
         private System.Windows.Forms.Button button_Create;
-        private System.Windows.Forms.TextBox SQL_CommandString;
+        private System.Windows.Forms.TextBox SQLCommandString;
         private System.Windows.Forms.Button button_Alter;
         private System.Windows.Forms.Label DegreeOfCompletion;
         private System.Windows.Forms.Button button_Cooy;

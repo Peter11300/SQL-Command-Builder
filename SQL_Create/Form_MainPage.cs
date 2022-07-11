@@ -8,7 +8,7 @@ namespace SQLCommandString
 {
     public partial class Form_MainPage : Form
     {
-        string excelPath = "";
+        private string excelPath = "";
 
         public Form_MainPage()
         {
@@ -20,7 +20,7 @@ namespace SQLCommandString
 
             Clipboard.SetData(DataFormats.Text, commandString);
 
-            SQL_CommandString.Text = commandString;
+            SQLCommandString.Text = commandString;
         }
 
         
@@ -33,8 +33,8 @@ namespace SQLCommandString
 
         private void button_Cooy_Click(object sender, EventArgs e)
         {
-            SQL_CommandString.SelectAll();
-            SQL_CommandString.Copy();
+            SQLCommandString.SelectAll();
+            SQLCommandString.Copy();
         }
 
         private void button_CreateTable_Click(object sender, EventArgs e)
