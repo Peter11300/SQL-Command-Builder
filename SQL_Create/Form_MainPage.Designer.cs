@@ -26,10 +26,8 @@
             this.button_Create = new System.Windows.Forms.Button();
             this.SQLCommandString = new System.Windows.Forms.TextBox();
             this.button_Alter = new System.Windows.Forms.Button();
-            this.DegreeOfCompletion = new System.Windows.Forms.Label();
             this.button_Cooy = new System.Windows.Forms.Button();
             this.button_Dectionary = new System.Windows.Forms.Button();
-            this.progressBar1 = new System.Windows.Forms.ProgressBar();
             this.SuspendLayout();
             // 
             // button_Create
@@ -74,16 +72,6 @@
             this.button_Alter.UseVisualStyleBackColor = false;
             this.button_Alter.Click += new System.EventHandler(this.button_Alter_Click);
             // 
-            // DegreeOfCompletion
-            // 
-            this.DegreeOfCompletion.AutoSize = true;
-            this.DegreeOfCompletion.Font = new System.Drawing.Font("微軟正黑體", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
-            this.DegreeOfCompletion.Location = new System.Drawing.Point(140, 438);
-            this.DegreeOfCompletion.Name = "DegreeOfCompletion";
-            this.DegreeOfCompletion.Size = new System.Drawing.Size(129, 27);
-            this.DegreeOfCompletion.TabIndex = 6;
-            this.DegreeOfCompletion.Text = "完成率：0％";
-            // 
             // button_Cooy
             // 
             this.button_Cooy.BackColor = System.Drawing.Color.SkyBlue;
@@ -114,24 +102,14 @@
             this.button_Dectionary.UseVisualStyleBackColor = false;
             this.button_Dectionary.Click += new System.EventHandler(this.button_Dectionary_Click);
             // 
-            // progressBar1
-            // 
-            this.progressBar1.Location = new System.Drawing.Point(127, 434);
-            this.progressBar1.Name = "progressBar1";
-            this.progressBar1.Size = new System.Drawing.Size(295, 31);
-            this.progressBar1.TabIndex = 9;
-            this.progressBar1.Visible = false;
-            // 
             // Form_MainPage
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.White;
             this.ClientSize = new System.Drawing.Size(598, 481);
-            this.Controls.Add(this.progressBar1);
             this.Controls.Add(this.button_Dectionary);
             this.Controls.Add(this.button_Cooy);
-            this.Controls.Add(this.DegreeOfCompletion);
             this.Controls.Add(this.button_Alter);
             this.Controls.Add(this.SQLCommandString);
             this.Controls.Add(this.button_Create);
@@ -150,10 +128,8 @@
         private System.Windows.Forms.Button button_Create;
         private System.Windows.Forms.TextBox SQLCommandString;
         private System.Windows.Forms.Button button_Alter;
-        private System.Windows.Forms.Label DegreeOfCompletion;
         private System.Windows.Forms.Button button_Cooy;
         private System.Windows.Forms.Button button_Dectionary;
-        private System.Windows.Forms.ProgressBar progressBar1;
     }
 }
 
