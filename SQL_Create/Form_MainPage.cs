@@ -4,7 +4,7 @@ using System.Data;
 using System.IO;
 using System.Windows.Forms;
 
-namespace SQLCommandString
+namespace SqlCommandBuilder
 {
     public partial class Form_MainPage : Form
     {

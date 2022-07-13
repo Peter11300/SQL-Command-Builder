@@ -3,7 +3,7 @@ using System.Data;
 using System.Linq;
 using System.Text;
 
-namespace SQLCommandString
+namespace SqlCommandBuilder
 {
     class RefactorContentManager
     {

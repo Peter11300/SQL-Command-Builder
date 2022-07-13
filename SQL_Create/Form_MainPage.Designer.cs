@@ -1,4 +1,4 @@
-﻿namespace SQLCommandString {
+﻿namespace SqlCommandBuilder {
     partial class Form_MainPage {
         /// <summary>
         /// 設計工具所需的變數。

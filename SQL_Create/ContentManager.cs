@@ -3,7 +3,7 @@ using System.Data;
 using System.Text;
 using System.Linq;
 
-namespace SQLCommandString
+namespace SqlCommandBuilder
 {
     public static class ContentManager
     {
