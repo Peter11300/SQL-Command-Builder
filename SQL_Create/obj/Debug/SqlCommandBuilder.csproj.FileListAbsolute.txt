@@ -1,0 +1,9 @@
+D:\Portfolio\CreateSQLCommandString\SQL_Create\bin\Debug\SqlCommandBuilder.exe.config
+D:\Portfolio\CreateSQLCommandString\SQL_Create\bin\Debug\SqlCommandBuilder.exe
+D:\Portfolio\CreateSQLCommandString\SQL_Create\bin\Debug\SqlCommandBuilder.pdb
+D:\Portfolio\CreateSQLCommandString\SQL_Create\obj\Debug\SqlCommandBuilder.csproj.ResolveComReference.cache
+D:\Portfolio\CreateSQLCommandString\SQL_Create\obj\Debug\SQLCommandString.Form_MainPage.resources
+D:\Portfolio\CreateSQLCommandString\SQL_Create\obj\Debug\SqlCommandBuilder.Properties.Resources.resources
+D:\Portfolio\CreateSQLCommandString\SQL_Create\obj\Debug\SqlCommandBuilder.csproj.GenerateResource.Cache
+D:\Portfolio\CreateSQLCommandString\SQL_Create\obj\Debug\SqlCommandBuilder.exe
+D:\Portfolio\CreateSQLCommandString\SQL_Create\obj\Debug\SqlCommandBuilder.pdb

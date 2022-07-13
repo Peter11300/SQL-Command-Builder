@@ -26,3 +26,4 @@ D:\Portfolio\CreateSQLCommandString\SQL_Create\obj\Debug\SQLCommandString.Form_M
 D:\Portfolio\CreateSQLCommandString\SQL_Create\obj\Debug\SQLCommandString.Properties.Resources.resources
 D:\Portfolio\CreateSQLCommandString\SQL_Create\obj\Debug\SQLCommandString.csproj.GenerateResource.Cache
 D:\Portfolio\CreateSQLCommandString\SQL_Create\obj\Debug\SQLCommandString.csprojResolveAssemblyReference.cache
+D:\Portfolio\CreateSQLCommandString\SQL_Create\bin\Debug\SqlCommandBuilder.exe.config
