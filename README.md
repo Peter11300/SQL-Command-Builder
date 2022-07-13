@@ -7,7 +7,7 @@ The excel file will be auto-created when running this program.
 ![image](https://user-images.githubusercontent.com/65581934/178646892-d9c1c791-94b0-4e8c-b27d-89c36e7d5635.png)
 
 ### Tags
-
+Use in excel column "修改註記V"
 | Tag  |    Description     |
 | :--- | :----------------: |
 | AT   |    Create Table    |
