@@ -5,9 +5,9 @@
 When turn on this program,
 excel file will auto created. 
 
-### Adjust Mark
+### Adjustment Tag
 
-|   修改內容   | 標記 |
+|   Adjustment Content   | Tag |
 | :---------- | :--: |
 |   Create Table   |  AT  |
 |   Add Column   |  A   |
