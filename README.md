@@ -2,31 +2,28 @@
 
 ![image](https://user-images.githubusercontent.com/65581934/178645452-3330e821-6708-4339-995f-ef34e574923f.png)
 
-When turn on this program,
-excel file will auto created. 
+The excel file will be auto-created when running this program. 
 
 ![image](https://user-images.githubusercontent.com/65581934/178646892-d9c1c791-94b0-4e8c-b27d-89c36e7d5635.png)
 
-### Adjustment Tag
+### Tags
 
-Use in excel column "修改註記V"
+| Tag  |    Description     |
+| :--- | :----------------: |
+| AT   |    Create Table    |
+| A    |     Add Column     |
+| D    |   Delete Column    |
+| C    | Change Column Name |
+| M    | Modify Column Type |
 
-|   Adjusted Content   | Tag |
-| :---------- | :--: |
-|   Create Table   |  AT  |
-|   Add Column   |  A   |
-|   Delete Column   |  D   |
-| Change Column Name |  C   |
-| Modify Column Type |  M   |
 
-### Function
-
-1. Create Table
-  * Program will collect all "AT" tag row, and build create table command string.
-2. Alter Column
-  * Program will collect all "A", "D", "C", "M" tag row, and build alter column command string and stored procedure.
-3. Create and Alter
-  * Program will collect all tag row, and build command string.
-  * Actually the function is 1 + 2.
-4. Copy Content
-  * Copy text area's content.
+### Functions
+#### 1. Create Table
+* Collect "AT" tag rows and build create table command string.
+#### 2. Alter Column
+* Collect "A", "D", "C", "M" tag rows and build alter column command string and stored procedure.
+#### 3. Create and Alter
+* Collect all tag rows and build command string.
+* Actually the function is 1 + 2.
+#### 4. Copy Content
+* Copy the content of the text area.
