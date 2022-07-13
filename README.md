@@ -5,6 +5,8 @@
 When turn on this program,
 excel file will auto created. 
 
+![image](https://user-images.githubusercontent.com/65581934/178646892-d9c1c791-94b0-4e8c-b27d-89c36e7d5635.png)
+
 ### Adjustment Tag
 
 |   Adjusted Content   | Tag |
