@@ -37,7 +37,7 @@
             // 
             // button_Create
             // 
-            this.button_Create.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(232)))), ((int)(((byte)(189)))), ((int)(((byte)(33)))));
+            this.button_Create.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(212)))), ((int)(((byte)(223)))), ((int)(((byte)(187)))));
             this.button_Create.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.button_Create.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
             this.button_Create.Location = new System.Drawing.Point(12, 13);
@@ -51,7 +51,7 @@
             // 
             // button_Alter
             // 
-            this.button_Alter.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(232)))), ((int)(((byte)(189)))), ((int)(((byte)(33)))));
+            this.button_Alter.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(212)))), ((int)(((byte)(223)))), ((int)(((byte)(187)))));
             this.button_Alter.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.button_Alter.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
             this.button_Alter.Location = new System.Drawing.Point(12, 83);
@@ -65,7 +65,7 @@
             // 
             // button_Cooy
             // 
-            this.button_Cooy.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(162)))), ((int)(((byte)(145)))), ((int)(((byte)(137)))));
+            this.button_Cooy.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(228)))), ((int)(((byte)(175)))), ((int)(((byte)(155)))));
             this.button_Cooy.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.button_Cooy.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
             this.button_Cooy.Location = new System.Drawing.Point(12, 426);
@@ -79,7 +79,7 @@
             // 
             // button_Dectionary
             // 
-            this.button_Dectionary.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(232)))), ((int)(((byte)(189)))), ((int)(((byte)(33)))));
+            this.button_Dectionary.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(212)))), ((int)(((byte)(223)))), ((int)(((byte)(187)))));
             this.button_Dectionary.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.button_Dectionary.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
             this.button_Dectionary.Location = new System.Drawing.Point(12, 223);
@@ -94,7 +94,7 @@
             // 
             // button_command
             // 
-            this.button_command.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(232)))), ((int)(((byte)(189)))), ((int)(((byte)(33)))));
+            this.button_command.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(212)))), ((int)(((byte)(223)))), ((int)(((byte)(187)))));
             this.button_command.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.button_command.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
             this.button_command.Location = new System.Drawing.Point(12, 153);
@@ -108,7 +108,7 @@
             // 
             // panelMenu
             // 
-            this.panelMenu.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(153)))), ((int)(((byte)(139)))), ((int)(((byte)(104)))));
+            this.panelMenu.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(243)))), ((int)(((byte)(238)))), ((int)(((byte)(213)))));
             this.panelMenu.Controls.Add(this.button_Create);
             this.panelMenu.Controls.Add(this.button_Cooy);
             this.panelMenu.Controls.Add(this.button_Dectionary);
@@ -131,7 +131,7 @@
             // 
             // SQLCommandString
             // 
-            this.SQLCommandString.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(177)))), ((int)(((byte)(188)))), ((int)(((byte)(158)))));
+            this.SQLCommandString.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(235)))), ((int)(((byte)(227)))), ((int)(((byte)(176)))));
             this.SQLCommandString.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.SQLCommandString.Dock = System.Windows.Forms.DockStyle.Fill;
             this.SQLCommandString.Font = new System.Drawing.Font("Segoe UI", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
