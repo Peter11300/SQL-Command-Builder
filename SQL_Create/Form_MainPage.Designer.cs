@@ -89,6 +89,7 @@
             this.button_Dectionary.TabIndex = 8;
             this.button_Dectionary.Text = "Add Data Dectionary";
             this.button_Dectionary.UseVisualStyleBackColor = false;
+            this.button_Dectionary.Visible = false;
             this.button_Dectionary.Click += new System.EventHandler(this.button_Dectionary_Click);
             // 
             // button_command

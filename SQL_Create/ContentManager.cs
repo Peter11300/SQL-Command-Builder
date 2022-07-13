@@ -261,7 +261,7 @@ namespace SQLCommandString
 
         public static string GetFIELD_LENGTH(string inputString)
         {
-            string variableType = (inputString.Contains("(")) ? inputString.Substring(0, inputString.IndexOf("(")) : inputString;
+            string variableType = GetFIELD_TYPE(inputString);
 
             switch (variableType)
             {
