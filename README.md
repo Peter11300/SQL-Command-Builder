@@ -9,6 +9,8 @@ excel file will auto created.
 
 ### Adjustment Tag
 
+Use in excel column "修改註記V"
+
 |   Adjusted Content   | Tag |
 | :---------- | :--: |
 |   Create Table   |  AT  |
