@@ -6,7 +6,7 @@ using System.Linq;
 namespace SQLCommandString
 {
     public static class ContentManager
-    {        
+    {
         public static List<string> GetStartEndLocation(DataTable excelTable)
         {
             List<string> location = new List<string>();

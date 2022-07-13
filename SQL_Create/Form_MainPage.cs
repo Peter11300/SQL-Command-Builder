@@ -28,16 +28,11 @@ namespace SQLCommandString
             if (TableValue.Rows.Count <= 0)
                 return;
 
+            DataSet organizedData = RefactorContentManager.GetCreateDataSet(TableValue, RefactorContentManager.GetSqlCreateTableName(TableValue));
 
-            DataSet ds = RefactorContentManager.GetDataSet(TableValue, RefactorContentManager.GetSqlTableName(TableValue, "AT"), "AT");
-            string a = RefactorContentManager.GetCreateString(ds);
-            SetSQLCommandStringText(a);
+            string commandString = CreateManager.GetCreateString(organizedData);
 
-            //List<string> startEndLocation = ContentManager.GetStartEndLocation(TableValue);
-            //List<string> primaryKeyLocation = ContentManager.GetPrimaryKeyLocation(TableValue);
-            //string commandString = ContentManager.GetCreateString(TableValue, startEndLocation, primaryKeyLocation);
-
-            //SetSQLCommandStringText(commandString);
+            SetSQLCommandStringText(commandString);
         }
 
         private void button_Alter_Click(object sender, EventArgs e)
@@ -47,7 +42,7 @@ namespace SQLCommandString
             if (TableValue.Rows.Count <= 0)
                 return;
 
-            string commandString = ContentManager.GetAlterString(TableValue);
+            string commandString = AlterManager.GetAlterString(RefactorContentManager.GetSqlAlterTable(TableValue));
 
             SetSQLCommandStringText(commandString);
         }
@@ -81,6 +76,24 @@ namespace SQLCommandString
             Clipboard.SetData(DataFormats.Text, commandString);
 
             SQLCommandString.Text = commandString;
+        }
+
+        private void button_command_Click(object sender, EventArgs e)
+        {
+            DataTable TableValue = ExcelManager.ImportExcel(excelPath);
+
+            if (TableValue.Rows.Count <= 0)
+                return;
+
+            DataSet organizedData = RefactorContentManager.GetCreateDataSet(TableValue, RefactorContentManager.GetSqlCreateTableName(TableValue));
+
+            string commandString = CreateManager.GetCreateString(organizedData);
+
+            commandString += "\r\n";
+
+            commandString += AlterManager.GetAlterString(RefactorContentManager.GetSqlAlterTable(TableValue));
+
+            SetSQLCommandStringText(commandString);
         }
     }
 }
