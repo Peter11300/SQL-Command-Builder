@@ -7,4 +7,3 @@ D:\Portfolio\CreateSQLCommandString\SQL_Create\obj\Debug\SqlCommandBuilder.cspro
 D:\Portfolio\CreateSQLCommandString\SQL_Create\obj\Debug\SqlCommandBuilder.exe
 D:\Portfolio\CreateSQLCommandString\SQL_Create\obj\Debug\SqlCommandBuilder.pdb
 D:\Portfolio\CreateSQLCommandString\SQL_Create\obj\Debug\SqlCommandBuilder.Form_MainPage.resources
-D:\Portfolio\CreateSQLCommandString\SQL_Create\obj\Debug\SqlCommandBuilder.csprojResolveAssemblyReference.cache
