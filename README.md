@@ -7,7 +7,7 @@ excel file will auto created.
 
 ### Adjustment Tag
 
-|   Adjustment Content   | Tag |
+|   Adjusted Content   | Tag |
 | :---------- | :--: |
 |   Create Table   |  AT  |
 |   Add Column   |  A   |
