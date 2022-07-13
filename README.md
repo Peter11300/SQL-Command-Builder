@@ -1,6 +1,6 @@
 # SQL Command Builder
 
-![image](https://user-images.githubusercontent.com/65581934/178645452-3330e821-6708-4339-995f-ef34e574923f.png)
+![image](https://user-images.githubusercontent.com/65581934/178659830-9d8eae4a-9125-4344-95bb-f74b11836086.png)
 
 The excel file will be auto-created when running this program. 
 
