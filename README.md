@@ -8,13 +8,13 @@ The excel file will be auto-created when running this program.
 
 ### Tags
 
-|   Adjusted Content   | Tag |
-| :---------- | :--: |
-|   Create Table   |  AT  |
-|   Add Column   |  A   |
-|   Delete Column   |  D   |
-| Change Column Name |  C   |
-| Modify Column Type |  M   |
+| Tag  |    Description     |
+| :--- | :----------------: |
+| AT   |    Create Table    |
+| A    |     Add Column     |
+| D    |   Delete Column    |
+| C    | Change Column Name |
+| M    | Modify Column Type |
 
 ### Functions
 #### 1. Create Table
