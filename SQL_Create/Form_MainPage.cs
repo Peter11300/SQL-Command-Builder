@@ -28,7 +28,12 @@ namespace SQLCommandString
             if (TableValue.Rows.Count <= 0)
                 return;
 
-            DataSet organizedData = RefactorContentManager.GetCreateDataSet(TableValue, RefactorContentManager.GetSqlCreateTableName(TableValue));
+            List<string> ls = RefactorContentManager.GetSqlCreateTableName(TableValue);
+
+            if (ls == null)
+                return;
+
+            DataSet organizedData = RefactorContentManager.GetCreateDataSet(TableValue, ls);
 
             string commandString = CreateManager.GetCreateString(organizedData);
 
@@ -42,7 +47,12 @@ namespace SQLCommandString
             if (TableValue.Rows.Count <= 0)
                 return;
 
-            string commandString = AlterManager.GetAlterString(RefactorContentManager.GetSqlAlterTable(TableValue));
+            DataTable dt = RefactorContentManager.GetSqlAlterTable(TableValue);
+
+            if (dt == null)
+                return;
+
+            string commandString = AlterManager.GetAlterString(dt);
 
             SetSQLCommandStringText(commandString);
         }
@@ -85,13 +95,22 @@ namespace SQLCommandString
             if (TableValue.Rows.Count <= 0)
                 return;
 
-            DataSet organizedData = RefactorContentManager.GetCreateDataSet(TableValue, RefactorContentManager.GetSqlCreateTableName(TableValue));
+            string commandString = "";
 
-            string commandString = CreateManager.GetCreateString(organizedData);
+            List<string> ls = RefactorContentManager.GetSqlCreateTableName(TableValue);
+
+            if (ls != null)
+            {
+                DataSet organizedData = RefactorContentManager.GetCreateDataSet(TableValue, ls);
+                commandString = CreateManager.GetCreateString(organizedData);
+            }
 
             commandString += "\r\n";
 
-            commandString += AlterManager.GetAlterString(RefactorContentManager.GetSqlAlterTable(TableValue));
+            DataTable dt = RefactorContentManager.GetSqlAlterTable(TableValue);
+
+            if (dt != null)
+                commandString += AlterManager.GetAlterString(dt);
 
             SetSQLCommandStringText(commandString);
         }

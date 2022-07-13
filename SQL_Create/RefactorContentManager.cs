@@ -9,7 +9,15 @@ namespace SQLCommandString
     {
         public static List<string> GetSqlCreateTableName(DataTable excelData)
         {
-            DataTable dataTableCopy = excelData.Select($"修改註記V = 'AT'").CopyToDataTable();
+            DataTable dataTableCopy;
+            try
+            {
+                dataTableCopy = excelData.Select($"修改註記V = 'AT'").CopyToDataTable();
+            }
+            catch (System.Exception)
+            {
+                return null;
+            }
 
             DataTable distDt = dataTableCopy.DefaultView.ToTable(true, "規格書");
 
@@ -34,8 +42,16 @@ namespace SQLCommandString
 
         public static DataTable GetSqlAlterTable(DataTable excelData)
         {
-            DataTable dataTableCopy = excelData.Select($"修改註記V = 'A' OR 修改註記V = 'D' OR 修改註記V = 'C' OR 修改註記V = 'M'").CopyToDataTable();
-
+            DataTable dataTableCopy;
+            try
+            {
+                 dataTableCopy = excelData.Select($"修改註記V = 'A' OR 修改註記V = 'D' OR 修改註記V = 'C' OR 修改註記V = 'M'").CopyToDataTable();
+            }
+            catch (System.Exception)
+            {
+                return null;
+            }
+            
             return dataTableCopy;
         }        
     }
