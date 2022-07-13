@@ -1,6 +1,7 @@
-# CreateSQLCommandString
+# SQL Command Builder
 
-開啟程式會自動產生Excel檔案並開啟
+When turn on this program,
+excel file will auto created. 
 
 修改註記
 
