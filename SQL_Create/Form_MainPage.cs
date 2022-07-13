@@ -28,11 +28,16 @@ namespace SQLCommandString
             if (TableValue.Rows.Count <= 0)
                 return;
 
-            List<string> startEndLocation = ContentManager.GetStartEndLocation(TableValue);
-            List<string> primaryKeyLocation = ContentManager.GetPrimaryKeyLocation(TableValue);
-            string commandString = ContentManager.GetCreateString(TableValue, startEndLocation, primaryKeyLocation);
 
-            SetSQLCommandStringText(commandString);
+            DataSet ds = RefactorContentManager.GetDataSet(TableValue, RefactorContentManager.GetSqlTableName(TableValue, "AT"), "AT");
+            string a = RefactorContentManager.GetCreateString(ds);
+            SetSQLCommandStringText(a);
+
+            //List<string> startEndLocation = ContentManager.GetStartEndLocation(TableValue);
+            //List<string> primaryKeyLocation = ContentManager.GetPrimaryKeyLocation(TableValue);
+            //string commandString = ContentManager.GetCreateString(TableValue, startEndLocation, primaryKeyLocation);
+
+            //SetSQLCommandStringText(commandString);
         }
 
         private void button_Alter_Click(object sender, EventArgs e)

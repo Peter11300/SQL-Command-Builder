@@ -1,11 +1,12 @@
 ﻿using System.Collections.Generic;
 using System.Data;
 using System.Text;
+using System.Linq;
 
 namespace SQLCommandString
 {
     public static class ContentManager
-    {
+    {        
         public static List<string> GetStartEndLocation(DataTable excelTable)
         {
             List<string> location = new List<string>();
@@ -233,7 +234,7 @@ namespace SQLCommandString
 
         public static string GetAlterDropString(DataRow dataRow)
         {
-            string alterDropString = $"ALTER TABLE {dataRow["規格書"].ToString()} DROP COLUMN {dataRow["資料行名稱"].ToString()} ;\r\n";            
+            string alterDropString = $"ALTER TABLE {dataRow["規格書"].ToString()} DROP COLUMN {dataRow["資料行名稱"].ToString()} ;\r\n";
 
             return alterDropString;
         }
@@ -248,7 +249,7 @@ namespace SQLCommandString
 
         public static string GetAlterModifyString(DataRow dataRow)
         {
-            string alterModifyString = $"ALTER TABLE {dataRow["規格書"].ToString()} ALTER COLUMN {dataRow["資料行名稱"].ToString()} {dataRow["資料類型"].ToString()} ;\r\n";            
+            string alterModifyString = $"ALTER TABLE {dataRow["規格書"].ToString()} ALTER COLUMN {dataRow["資料行名稱"].ToString()} {dataRow["資料類型"].ToString()} ;\r\n";
 
             return alterModifyString;
         }
