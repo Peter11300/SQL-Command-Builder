@@ -23,11 +23,11 @@
         /// 這個方法的內容。
         /// </summary>
         private void InitializeComponent() {
-            this.button_Create = new System.Windows.Forms.Button();
-            this.button_Alter = new System.Windows.Forms.Button();
-            this.button_Cooy = new System.Windows.Forms.Button();
-            this.button_Dectionary = new System.Windows.Forms.Button();
-            this.button_command = new System.Windows.Forms.Button();
+            this.buttonCreate = new System.Windows.Forms.Button();
+            this.buttonAlter = new System.Windows.Forms.Button();
+            this.buttonCooy = new System.Windows.Forms.Button();
+            this.buttonDectionary = new System.Windows.Forms.Button();
+            this.buttonCommand = new System.Windows.Forms.Button();
             this.panelMenu = new System.Windows.Forms.Panel();
             this.panelDesktop = new System.Windows.Forms.Panel();
             this.SQLCommandString = new System.Windows.Forms.TextBox();
@@ -35,85 +35,85 @@
             this.panelDesktop.SuspendLayout();
             this.SuspendLayout();
             // 
-            // button_Create
+            // buttonCreate
             // 
-            this.button_Create.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(212)))), ((int)(((byte)(223)))), ((int)(((byte)(187)))));
-            this.button_Create.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.button_Create.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
-            this.button_Create.Location = new System.Drawing.Point(12, 13);
-            this.button_Create.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.button_Create.Name = "button_Create";
-            this.button_Create.Size = new System.Drawing.Size(175, 54);
-            this.button_Create.TabIndex = 3;
-            this.button_Create.Text = "Create Table";
-            this.button_Create.UseVisualStyleBackColor = false;
-            this.button_Create.Click += new System.EventHandler(this.button_CreateTable_Click);
+            this.buttonCreate.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(212)))), ((int)(((byte)(223)))), ((int)(((byte)(187)))));
+            this.buttonCreate.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.buttonCreate.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
+            this.buttonCreate.Location = new System.Drawing.Point(12, 13);
+            this.buttonCreate.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.buttonCreate.Name = "buttonCreate";
+            this.buttonCreate.Size = new System.Drawing.Size(175, 54);
+            this.buttonCreate.TabIndex = 3;
+            this.buttonCreate.Text = "Create Table";
+            this.buttonCreate.UseVisualStyleBackColor = false;
+            this.buttonCreate.Click += new System.EventHandler(this.button_CreateTable_Click);
             // 
-            // button_Alter
+            // buttonAlter
             // 
-            this.button_Alter.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(212)))), ((int)(((byte)(223)))), ((int)(((byte)(187)))));
-            this.button_Alter.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.button_Alter.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
-            this.button_Alter.Location = new System.Drawing.Point(12, 83);
-            this.button_Alter.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.button_Alter.Name = "button_Alter";
-            this.button_Alter.Size = new System.Drawing.Size(175, 54);
-            this.button_Alter.TabIndex = 5;
-            this.button_Alter.Text = "Alter Column";
-            this.button_Alter.UseVisualStyleBackColor = false;
-            this.button_Alter.Click += new System.EventHandler(this.button_Alter_Click);
+            this.buttonAlter.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(212)))), ((int)(((byte)(223)))), ((int)(((byte)(187)))));
+            this.buttonAlter.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.buttonAlter.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
+            this.buttonAlter.Location = new System.Drawing.Point(12, 83);
+            this.buttonAlter.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.buttonAlter.Name = "buttonAlter";
+            this.buttonAlter.Size = new System.Drawing.Size(175, 54);
+            this.buttonAlter.TabIndex = 5;
+            this.buttonAlter.Text = "Alter Column";
+            this.buttonAlter.UseVisualStyleBackColor = false;
+            this.buttonAlter.Click += new System.EventHandler(this.button_Alter_Click);
             // 
-            // button_Cooy
+            // buttonCooy
             // 
-            this.button_Cooy.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(228)))), ((int)(((byte)(175)))), ((int)(((byte)(155)))));
-            this.button_Cooy.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.button_Cooy.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
-            this.button_Cooy.Location = new System.Drawing.Point(12, 426);
-            this.button_Cooy.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.button_Cooy.Name = "button_Cooy";
-            this.button_Cooy.Size = new System.Drawing.Size(175, 54);
-            this.button_Cooy.TabIndex = 7;
-            this.button_Cooy.Text = "Copy Content";
-            this.button_Cooy.UseVisualStyleBackColor = false;
-            this.button_Cooy.Click += new System.EventHandler(this.button_Cooy_Click);
+            this.buttonCooy.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(228)))), ((int)(((byte)(175)))), ((int)(((byte)(155)))));
+            this.buttonCooy.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.buttonCooy.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
+            this.buttonCooy.Location = new System.Drawing.Point(12, 426);
+            this.buttonCooy.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.buttonCooy.Name = "buttonCooy";
+            this.buttonCooy.Size = new System.Drawing.Size(175, 54);
+            this.buttonCooy.TabIndex = 7;
+            this.buttonCooy.Text = "Copy Content";
+            this.buttonCooy.UseVisualStyleBackColor = false;
+            this.buttonCooy.Click += new System.EventHandler(this.button_Cooy_Click);
             // 
-            // button_Dectionary
+            // buttonDectionary
             // 
-            this.button_Dectionary.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(212)))), ((int)(((byte)(223)))), ((int)(((byte)(187)))));
-            this.button_Dectionary.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.button_Dectionary.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
-            this.button_Dectionary.Location = new System.Drawing.Point(12, 223);
-            this.button_Dectionary.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.button_Dectionary.Name = "button_Dectionary";
-            this.button_Dectionary.Size = new System.Drawing.Size(175, 55);
-            this.button_Dectionary.TabIndex = 8;
-            this.button_Dectionary.Text = "Add Data Dectionary";
-            this.button_Dectionary.UseVisualStyleBackColor = false;
-            this.button_Dectionary.Visible = false;
-            this.button_Dectionary.Click += new System.EventHandler(this.button_Dectionary_Click);
+            this.buttonDectionary.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(212)))), ((int)(((byte)(223)))), ((int)(((byte)(187)))));
+            this.buttonDectionary.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.buttonDectionary.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
+            this.buttonDectionary.Location = new System.Drawing.Point(12, 223);
+            this.buttonDectionary.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.buttonDectionary.Name = "buttonDectionary";
+            this.buttonDectionary.Size = new System.Drawing.Size(175, 55);
+            this.buttonDectionary.TabIndex = 8;
+            this.buttonDectionary.Text = "Add Data Dectionary";
+            this.buttonDectionary.UseVisualStyleBackColor = false;
+            this.buttonDectionary.Visible = false;
+            this.buttonDectionary.Click += new System.EventHandler(this.button_Dectionary_Click);
             // 
-            // button_command
+            // buttonCommand
             // 
-            this.button_command.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(212)))), ((int)(((byte)(223)))), ((int)(((byte)(187)))));
-            this.button_command.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.button_command.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
-            this.button_command.Location = new System.Drawing.Point(12, 153);
-            this.button_command.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.button_command.Name = "button_command";
-            this.button_command.Size = new System.Drawing.Size(175, 54);
-            this.button_command.TabIndex = 9;
-            this.button_command.Text = "Create and Alter";
-            this.button_command.UseVisualStyleBackColor = false;
-            this.button_command.Click += new System.EventHandler(this.button_command_Click);
+            this.buttonCommand.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(212)))), ((int)(((byte)(223)))), ((int)(((byte)(187)))));
+            this.buttonCommand.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.buttonCommand.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
+            this.buttonCommand.Location = new System.Drawing.Point(12, 153);
+            this.buttonCommand.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.buttonCommand.Name = "buttonCommand";
+            this.buttonCommand.Size = new System.Drawing.Size(175, 54);
+            this.buttonCommand.TabIndex = 9;
+            this.buttonCommand.Text = "Create and Alter";
+            this.buttonCommand.UseVisualStyleBackColor = false;
+            this.buttonCommand.Click += new System.EventHandler(this.button_command_Click);
             // 
             // panelMenu
             // 
             this.panelMenu.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(243)))), ((int)(((byte)(238)))), ((int)(((byte)(213)))));
-            this.panelMenu.Controls.Add(this.button_Create);
-            this.panelMenu.Controls.Add(this.button_Cooy);
-            this.panelMenu.Controls.Add(this.button_Dectionary);
-            this.panelMenu.Controls.Add(this.button_command);
-            this.panelMenu.Controls.Add(this.button_Alter);
+            this.panelMenu.Controls.Add(this.buttonCreate);
+            this.panelMenu.Controls.Add(this.buttonCooy);
+            this.panelMenu.Controls.Add(this.buttonDectionary);
+            this.panelMenu.Controls.Add(this.buttonCommand);
+            this.panelMenu.Controls.Add(this.buttonAlter);
             this.panelMenu.Dock = System.Windows.Forms.DockStyle.Left;
             this.panelMenu.Location = new System.Drawing.Point(0, 0);
             this.panelMenu.Name = "panelMenu";
@@ -167,11 +167,11 @@
         }
 
         #endregion
-        private System.Windows.Forms.Button button_Create;
-        private System.Windows.Forms.Button button_Alter;
-        private System.Windows.Forms.Button button_Cooy;
-        private System.Windows.Forms.Button button_Dectionary;
-        private System.Windows.Forms.Button button_command;
+        private System.Windows.Forms.Button buttonCreate;
+        private System.Windows.Forms.Button buttonAlter;
+        private System.Windows.Forms.Button buttonCooy;
+        private System.Windows.Forms.Button buttonDectionary;
+        private System.Windows.Forms.Button buttonCommand;
         private System.Windows.Forms.Panel panelMenu;
         private System.Windows.Forms.Panel panelDesktop;
         private System.Windows.Forms.TextBox SQLCommandString;
